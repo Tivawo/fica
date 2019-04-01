@@ -28,23 +28,16 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private final String TAG = "MovieTask";
     private MovieTaskListener listener;
     private String jsonResponse;
-    private int page;
+    private int page=1;
     private String sort="";
-
-    public MovieTask(int page) {
-        this.page = page;
-    }
-
-    public MovieTask(int page, String sort) {
-        this.page = page;
-        this.sort = sort;
-    }
+    private String adult="";
+    private String genres="";
 
     @Override
     protected String doInBackground(Void... voids) {
         try {
             //Establish url
-            URL url = new URL(urlBuilder(page, sort));
+            URL url = new URL(urlBuilder(page, sort, adult, genres));
             URLConnection urlConnection = url.openConnection();
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
@@ -53,6 +46,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             httpURLConnection.connect();
 
             //Confirm OK
+            Log.d(TAG, "doInBackground: URL Return code: "+httpURLConnection.getResponseCode());
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = httpURLConnection.getInputStream();
                 Scanner scanner = new Scanner(in);
@@ -69,14 +63,15 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
         //Return raw response
-
+        Log.d(TAG, "doInBackground: Returning raw json String");
+        Log.d(TAG, "doInBackground: String: "+jsonResponse);
         return jsonResponse;
     }
 
     protected void onPostExecute(String jsonResponse) {
         super.onPostExecute(jsonResponse);
         ArrayList<Movie> movieList = new ArrayList<>();
-        Log.d(TAG, "onPostExecute: ");
+        Log.d(TAG, "onPostExecute: Called");
 
         //Parse String into Movie objects
         try {
@@ -84,6 +79,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             JSONArray movies = jsonObject.getJSONArray(Constants.MOVIES);
 
             //Loop through array for multiple objects
+            Log.d(TAG, "onPostExecute: Init for loop");
             for (int i = 0; i < movies.length(); i++) {
                 JSONObject jsonMovie = movies.getJSONObject(i);
                 //Extract data
@@ -108,6 +104,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate);
                 movieList.add(movie);
             }
+            Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");
             listener.onMovieInfoAvailable(movieList);
 
             //Catch errors
@@ -126,10 +123,42 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         void onMovieInfoAvailable(ArrayList<Movie> photoList);
     }
 
-    private String urlBuilder(int i, String s) {
+    private String urlBuilder(int page, String sort, String adult, String genres) {
         //BUILD API URL HERE (With constants)
-        String url = Constants.URL1+Constants.PAGE+i+s+Constants.URL2;
+        String url = Constants.URL1+Constants.PAGE+page+Constants.SORT+sort+Constants.ISADULT+adult+Constants.GENRE+genres+Constants.URL2;
         Log.d(TAG, "urlBuilder: url:"+url);
         return url;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getAdult() {
+        return adult;
+    }
+
+    public void setAdult(String adult) {
+        this.adult = adult;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
     }
 }

@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +16,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.domain.fica.Domain.Movie;
 import com.domain.fica.Utils.MovieTask;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener {
 
     private RecyclerView recycler;
     private MovieAdapter movieAdapter;
     private MovieTask movieTask;
+    private ArrayList<Movie> movieList = new ArrayList<>();
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,19 @@ public class MainActivity extends AppCompatActivity
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(layoutManager);
         recycler.setHasFixedSize(true);
+
+
+        //Asynctask
+        Log.d(TAG, "onCreate: Calling MovieTask");
+        MovieTask movieTask = new MovieTask();
+        movieTask.setOnMovieInfoAvailableListener(this);
+        //Vars
+        movieTask.setPage(2);
+        //
+
+        movieTask.execute();
+        movieAdapter = new MovieAdapter(this, movieList);
+
     }
 
     @Override
@@ -116,4 +136,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
+        Log.d(TAG, "onMovieInfoAvailable: Called");
+        this.movieList.clear();
+        this.movieList.addAll(movieList);
+
+        this.movieAdapter.notifyDataSetChanged();
+    }
 }
