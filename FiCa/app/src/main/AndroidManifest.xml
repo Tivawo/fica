@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddListActivity"></activity>
+        <activity
+            android:name=".ListOverviewActivity"
+            android:label="@string/title_activity_list_overview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UserListActivity" />
+        <activity android:name=".ListOverViewActivity" />
+        <activity android:name=".DetailActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
