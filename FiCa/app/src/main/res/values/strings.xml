@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FiCa</string>
-    <string name="title_activity_list_overview">ListOverviewActivity</string>
     <string name="share">Share</string>
     <string name="print">Print</string>
     <string name="sort">Sort</string>
