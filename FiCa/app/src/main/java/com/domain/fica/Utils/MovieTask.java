@@ -33,6 +33,10 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private String adult="";
     private String genres="";
 
+    public void setOnMovieInfoAvailableListener(MovieTaskListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     protected String doInBackground(Void... voids) {
         try {
@@ -115,10 +119,6 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         }
     }
 
-    public void setOnMovieInfoAvailableListener(MovieTaskListener listener) {
-        this.listener = listener;
-    }
-
     public interface MovieTaskListener {
         void onMovieInfoAvailable(ArrayList<Movie> photoList);
     }
@@ -161,4 +161,5 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     public void setGenres(String genres) {
         this.genres = genres;
     }
+
 }

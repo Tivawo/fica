@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.domain.fica.Domain.Movie;
+import com.domain.fica.Utils.MovieAdapter;
 import com.domain.fica.Utils.MovieTask;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener {
 
-    private RecyclerView recycler;
+    private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private MovieTask movieTask;
-    private ArrayList<Movie> movieList = new ArrayList<>();
+    private ArrayList<Movie> movieList;
     public static final String TAG = "MainActivity";
 
     @Override
@@ -44,26 +45,31 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        recycler = findViewById(R.id.rv_recycler);
-
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recycler.setLayoutManager(layoutManager);
-        recycler.setHasFixedSize(true);
-
-
-        //Asynctask
+        // Asynctask
         Log.d(TAG, "onCreate: Calling MovieTask");
-        MovieTask movieTask = new MovieTask();
+        movieTask = new MovieTask();
         movieTask.setOnMovieInfoAvailableListener(this);
-        //Vars
+        // Vars
         movieTask.setPage(2);
-        //
 
-        movieTask.execute();
+        // Lijst waar movies in komen
+        movieList = new ArrayList<Movie>();
+
+        // Adapter voor de recyclerview
         movieAdapter = new MovieAdapter(this, movieList);
 
+        // Recyclerview instellingen
+        recyclerView = findViewById(R.id.rv_recycler);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(movieAdapter);
+
+        // Voer asynctask uit
+        movieTask.execute();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onMovieInfoAvailable: Called");
         this.movieList.clear();
         this.movieList.addAll(movieList);
-
         this.movieAdapter.notifyDataSetChanged();
     }
+
 }
