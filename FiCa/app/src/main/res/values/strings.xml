@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">FiCa</string>
+<<<<<<< HEAD
     <string name="title_activity_list_overview">ListOverviewActivity</string>
+=======
+    <string name="share">Share</string>
+    <string name="print">Print</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="Overview">Movielist Overview</string>
+    <string name="Sort_AToZ"> Sort A>Z</string>
+    <string name="Sort_ZToA"> Sort Z>A</string>
+    <string name="Release"> Release date(Asc)</string>
+    <string name="ReleaseDec">Release date(Dec)</string>
+    <string name="RatingPositive">Rating (Asc)</string>
+    <string name="RatingNegetive">Rating (Dec)</string>
+    <string name="filter_Leeftijd">Volwassenen</string>
+    <string name="filter_Leeftijd_blacklist">Kinderfilms</string>
+    <string name="filter_Genre">Genre</string>
+>>>>>>> Development
 </resources>
