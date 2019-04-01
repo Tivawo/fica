@@ -62,9 +62,4 @@
             </item>
         </menu>
     </item>
-    <item
-        android:id="@+id/MovieOverView"
-        android:orderInCategory="5"
-        android:title="@string/Overview"
-        app:showAsAction="ifRoom" />
 </menu>
