@@ -6,7 +6,8 @@
     <string name="print">Print</string>
     <string name="sort">Sort</string>
     <string name="filter">Filter</string>
-    <string name="Overview">Movielist Overview</string>
+    <string name="ListOverview">List Overview</string>
+    <string name="MovieOverview">Movie overview</string>
     <string name="Sort_AToZ"> Sort A>Z</string>
     <string name="Sort_ZToA"> Sort Z>A</string>
     <string name="Release"> Release date(Asc)</string>
@@ -18,8 +19,8 @@
     <string name="filter_Genre">Genre</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close" tools:ignore="ExtraTranslation">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Project FiCa</string>
+    <string name="nav_header_subtitle">Dylan Mulder\nTim van Wouwe\nMete Kalak\nRobin Beljaars\nCoen Rijsdijk</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 </resources>
