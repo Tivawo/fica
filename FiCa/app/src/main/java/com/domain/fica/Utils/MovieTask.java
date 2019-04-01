@@ -1,6 +1,7 @@
 package com.domain.fica.Utils;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.domain.fica.Domain.Movie;
 
@@ -27,13 +28,23 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private final String TAG = "MovieTask";
     private MovieTaskListener listener;
     private String jsonResponse;
+    private int page;
+    private String sort="";
 
+    public MovieTask(int page) {
+        this.page = page;
+    }
+
+    public MovieTask(int page, String sort) {
+        this.page = page;
+        this.sort = sort;
+    }
 
     @Override
     protected String doInBackground(Void... voids) {
         try {
             //Establish url
-            URL url = new URL(urlBuilder());
+            URL url = new URL(urlBuilder(page, sort));
             URLConnection urlConnection = url.openConnection();
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
@@ -65,6 +76,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String jsonResponse) {
         super.onPostExecute(jsonResponse);
         ArrayList<Movie> movieList = new ArrayList<>();
+        Log.d(TAG, "onPostExecute: ");
 
         //Parse String into Movie objects
         try {
@@ -89,7 +101,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 JSONArray genreArray = jsonMovie.getJSONArray(Constants.GENREIDS);
                 int[] genres = new int[genreArray.length()];
                 for (int g = 0; g < genreArray.length(); g++) {
-                    genres[g] = genreArray.getInt(i);
+                    genres[g] = genreArray.getInt(g);
                 }
 
                 //Add to arraylist
@@ -114,10 +126,10 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         void onMovieInfoAvailable(ArrayList<Movie> photoList);
     }
 
-    public static String urlBuilder() {
+    private String urlBuilder(int i, String s) {
         //BUILD API URL HERE (With constants)
-        String url = "";
-
+        String url = Constants.URL1+Constants.PAGE+i+s+Constants.URL2;
+        Log.d(TAG, "urlBuilder: url:"+url);
         return url;
     }
 }
