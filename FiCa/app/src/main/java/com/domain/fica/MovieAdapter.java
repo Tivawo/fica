@@ -36,9 +36,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         Movie currentMovie = movieList.get(i);
+        String movieText = currentMovie.getTitle() + "\n" + currentMovie.getReleaseDate()
+                + "\n" + currentMovie.isAdult();
 
-        movieViewHolder.tvMovieText.setText("hier komt info over de film");
-        Picasso.get().load(R.drawable.ic_launcher_background).fit().
+        movieViewHolder.tvMovieText.setText(movieText);
+        Picasso.get().load(currentMovie.getPosterUrl()).fit().
                 centerInside().into(movieViewHolder.ivMovieImage);
     }
 
