@@ -1,6 +1,8 @@
 package com.domain.fica;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +54,13 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieGenre.setText("Genre: " + movie.getGenres().toString());
         tvMovieRating.setText("Popularity: " + String.valueOf(movie.getRating()));
         tvMovieDescription.setText("Description: " + movie.getOverview());
+        toolbar();
+    }
+
+    private void toolbar() {
+        ActionBar actionback = getSupportActionBar();
+        actionback.setTitle(getResources().getString(R.string.app_name));
+        actionback.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -70,7 +79,10 @@ public class DetailActivity extends AppCompatActivity {
         }
         else if(id == R.id.share){
 
+        } else {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
