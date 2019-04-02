@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity
     private MovieTask movieTask;
     private ArrayList<Movie> movieList;
     public static final String TAG = "MainActivity";
-    private ArrayList<String> filter = new ArrayList<String>();
     private String sort = Constants.SORT_RATING_DESC;
-    private String genre = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -265,14 +263,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void ClearFilter() {
-        this.filter.clear();
-    }
-
-    public void AddToFilter(String filter) {
-        this.filter.add(filter);
-    }
-
     @Override
     public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
         Log.d(TAG, "onMovieInfoAvailable: Called");
@@ -280,18 +270,4 @@ public class MainActivity extends AppCompatActivity
         this.movieList.addAll(movieList);
         this.movieAdapter.notifyDataSetChanged();
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case 1:
-//                if (resultCode == RESULT_OK) {
-//                    filter.addAll(data.getStringArrayListExtra("Genres"));
-//                    Log.d(TAG, filter.get(0));
-//
-//                }
-//        }
-//    }
-
 }

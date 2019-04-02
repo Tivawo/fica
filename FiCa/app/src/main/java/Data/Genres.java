@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Genres {
 
-    public String getGenre(int[] ints) {
+    public static String getGenre(int[] ints) {
         ArrayList<String> genreList = new ArrayList<>();
 
         for (int i : ints

@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import Data.Genres;
+
 public class DetailActivity extends AppCompatActivity {
     private ImageView imgMovieDetailPicture;
     private TextView tvMovieTitle;
@@ -56,11 +58,12 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieRating = findViewById(R.id.tv_movie_rating);
         tvMovieDescription = findViewById(R.id.tv_movie_description);
 
+
         Bundle extras = getIntent().getExtras();
 
-        Movie movie = (Movie)extras.getSerializable("MOVIE");
+        Movie movie = (Movie) extras.getSerializable("MOVIE");
 
-        if(movie.isAdult()){
+        if (movie.isAdult()) {
             age = "Adult";
         } else {
             age = "Child/teen";
@@ -70,7 +73,7 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieTitle.setText("Title: " + movie.getTitle());
         tvMovieReleaseDate.setText("Release date: " + movie.getReleaseDate().toString());
         tvMovieAge.setText("Suitable for: " + age);
-        tvMovieGenre.setText("Genre: " + movie.getGenres().toString());
+        tvMovieGenre.setText("Genre: " + Genres.getGenre(movie.getGenres()));
         tvMovieRating.setText("Popularity: " + String.valueOf(movie.getRating()));
         tvMovieDescription.setText("Description: " + movie.getOverview());
         Testprint = findViewById(R.id.Testprint);
@@ -101,23 +104,23 @@ public class DetailActivity extends AppCompatActivity {
             bitmap = loadBitmapFromView(Testprint, Testprint.getWidth(), Testprint.getHeight());
             createPdf();
             String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
-            Log.d("DetailActivity a",dir);
+            Log.d("DetailActivity a", dir);
             return true;
-        }
-        else if(id == R.id.share){
+        } else if (id == R.id.share) {
 
         } else {
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
-    private void createPdf(){
+
+    private void createPdf() {
         WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         //  Display display = wm.getDefaultDisplay();
         DisplayMetrics displaymetrics = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        float hight = displaymetrics.heightPixels ;
-        float width = displaymetrics.widthPixels ;
+        float hight = displaymetrics.heightPixels;
+        float width = displaymetrics.widthPixels;
 
         int convertHighet = (int) hight, convertWidth = (int) width;
 
@@ -136,7 +139,7 @@ public class DetailActivity extends AppCompatActivity {
         bitmap = Bitmap.createScaledBitmap(bitmap, convertWidth, convertHighet, true);
 
         paint.setColor(Color.BLUE);
-        canvas.drawBitmap(bitmap, 0, 0 , null);
+        canvas.drawBitmap(bitmap, 0, 0, null);
         document.finishPage(page);
 
         // write the document content
@@ -159,21 +162,17 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void openGeneratedPDF(){
+    private void openGeneratedPDF() {
         File file = new File("/sdcard/pdffromlayout.pdf");
-        if (file.exists())
-        {
-            Intent intent=new Intent(Intent.ACTION_VIEW);
+        if (file.exists()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.fromFile(file);
             intent.setDataAndType(uri, "application/pdf");
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-            try
-            {
+            try {
                 startActivity(intent);
-            }
-            catch(ActivityNotFoundException e)
-            {
+            } catch (ActivityNotFoundException e) {
                 Toast.makeText(DetailActivity.this, "No Application available to view pdf", Toast.LENGTH_LONG).show();
             }
         }
@@ -187,7 +186,7 @@ public class DetailActivity extends AppCompatActivity {
         return b;
     }
 
-    public Intent shareMovie(){
+    public Intent shareMovie() {
         Bundle extras = getIntent().getExtras();
 
         Movie movie = (Movie) extras.getSerializable("MOVIE");
