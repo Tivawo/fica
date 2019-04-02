@@ -58,6 +58,33 @@
             <item
                 android:id="@+id/Filter_Genre"
                 android:title="@string/filter_Genre">
+                <menu>
+                    <item
+                    android:id="@+id/Genre_Action"
+                    android:title="Action">
+                </item>
+                    <item
+                        android:id="@+id/Genre_Adventure"
+                        android:title="Adventure">
+                    </item>
+                    <item
+                        android:id="@+id/Genre_Animation"
+                        android:title="Animation">
+                    </item>
+                    <item
+                        android:id="@+id/Genre_Comedy"
+                        android:title="Comedy">
+                    </item>
+                    <item
+                        android:id="@+id/Genre_Crime"
+                        android:title="Crime">
+                    </item>
+                    <item
+                        android:id="@+id/Genre_Documentary"
+                        android:title="Documentary">
+                    </item>
+
+                </menu>
             </item>
         </menu>
     </item>
