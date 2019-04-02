@@ -30,7 +30,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private String jsonResponse;
     private int page=1;
     private String sort="";
-    private String adult="";
+    private String adult="true";
     private String genres="";
 
     public void setOnMovieInfoAvailableListener(MovieTaskListener listener) {
