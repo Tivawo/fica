@@ -86,8 +86,6 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_movie, menu);
-        MenuItem menuItem = menu.findItem(R.id.share);
-        menuItem.setIntent(shareMovie());
         return true;
     }
 
@@ -106,7 +104,7 @@ public class DetailActivity extends AppCompatActivity {
         else if(id == R.id.share){
 
         } else {
-            finish();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -184,18 +182,6 @@ public class DetailActivity extends AppCompatActivity {
         v.draw(c);
 
         return b;
-    }
-
-    public Intent shareMovie(){
-        Bundle extras = getIntent().getExtras();
-
-        Movie movie = (Movie) extras.getSerializable("MOVIE");
-
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Check out movie: " + movie.getTitle() +
-                "\nDescription: " + movie.getOverview() + "\nSee included image: " + movie.getPosterUrl());
-        return sharingIntent;
     }
 
 }

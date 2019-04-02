@@ -24,7 +24,6 @@ public class Constants {
     public static final String TRUE= "true";
     public static final String GENRE= "&with_genres=";
 
-    public static String AdultBool="true";
     public static final String SORT = "&sort_by=";
     public static final String SORT_ALPH_ASC = "original_title.asc";
     public static final String SORT_ALPH_DESC = "original_title.desc";

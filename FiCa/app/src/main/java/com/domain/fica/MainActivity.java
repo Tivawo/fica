@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Movie> movieList;
     public static final String TAG = "MainActivity";
     private ArrayList<String> filter = new ArrayList<String>();
-    private String sort = Constants.SORT_RATING_DESC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(movieAdapter);
 
-        // Voer asynctask uit, maak kopie voor filters
+        // Voer asynctask uit
         movieTask.execute();
     }
 
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        Log.d(TAG, "onOptionsItemSelected: Called");
+        Log.d(TAG, "onOptionsItemSelected: ");
         switch (id) {
             case R.id.Sort_Option_A_To_Z:
                 executeSort(Constants.SORT_ALPH_ASC);
@@ -123,35 +122,17 @@ public class MainActivity extends AppCompatActivity
             case R.id.Sort_Option_Release_Dec:
                 executeSort(Constants.SORT_RELEASE_DESC);
                 break;
-            case R.id.Filter_Adult:
-                Log.d(TAG, "onOptionsItemSelected: include adult: " + Constants.TRUE);
-                Constants.AdultBool = Constants.TRUE;
-                reload();
-                break;
-            case R.id.Filter_Child:
-                Log.d(TAG, "onOptionsItemSelected: include adult: " + Constants.FALSE);
-                Constants.AdultBool = Constants.FALSE;
-                reload();
-                break;
-//            case R.id.Filter_Genre:
-//                startActivityForResult(new Intent(MainActivity.this, GenreFilter.class), 1);
-//                return true;
-
         }
+
         return super.onOptionsItemSelected(item);
     }
 
-    public void executeSort(String sort) {
-        Log.d(TAG, "executeSort: Called with sort: " + sort);
-        this.sort = sort;
-        MovieTask movieTask = new MovieTask();
+    public void executeSort(String sort){
+        Log.d(TAG, "executeSort: Called with sort: "+sort);
+        MovieTask movieTask= new MovieTask();
         movieTask.setSort(sort);
         movieTask.setOnMovieInfoAvailableListener(this);
         movieTask.execute();
-    }
-
-    public void reload() {
-        executeSort(this.sort);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -177,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         this.filter.clear();
     }
 
-    public void AddToFilter(String filter) {
+    public void AddToFilter(String filter){
         this.filter.add(filter);
     }
 
@@ -189,17 +170,16 @@ public class MainActivity extends AppCompatActivity
         this.movieAdapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case 1:
-//                if (resultCode == RESULT_OK) {
-//                    filter.addAll(data.getStringArrayListExtra("Genres"));
-//                    Log.d(TAG, filter.get(0));
-//
-//                }
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+        case 1:
+        if(resultCode == RESULT_OK){
+        filter.addAll(data.getStringArrayListExtra("Genres"));
+        Log.d(TAG, filter.get(0));
+        }
+    }
+    }
 
 }
