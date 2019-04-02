@@ -15,6 +15,74 @@
         android:title="@string/share"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/Filter_Genre"
+        android:title="@string/filter_Genre"
+        android:orderInCategory="5">
+        <menu>
+            <item
+                android:id="@+id/Genre_All"
+                android:title="@string/genre_all" />
+            <item
+                android:id="@+id/Genre_Action"
+                android:title="@string/genre_action" />
+            <item
+                android:id="@+id/Genre_Adventure"
+                android:title="@string/genre_adventure" />
+            <item
+                android:id="@+id/Genre_Animation"
+                android:title="@string/genre_animation" />
+            <item
+                android:id="@+id/Genre_Comedy"
+                android:title="@string/genre_comedy" />
+            <item
+                android:id="@+id/Genre_Crime"
+                android:title="@string/genre_crime" />
+            <item
+                android:id="@+id/Genre_Documentary"
+                android:title="@string/genre_documentary" />
+            <item
+                android:id="@+id/Genre_Drama"
+                android:title="@string/genre_drama" />
+            <item
+                android:id="@+id/Genre_Family"
+                android:title="@string/genre_family" />
+            <item
+                android:id="@+id/Genre_Fantasy"
+                android:title="@string/genre_fantasy" />
+            <item
+                android:id="@+id/Genre_History"
+                android:title="@string/genre_history" />
+            <item
+                android:id="@+id/Genre_Horror"
+                android:title="@string/genre_horror" />
+            <item
+                android:id="@+id/Genre_Music"
+                android:title="@string/genre_music" />
+            <item
+                android:id="@+id/Genre_Mystery"
+                android:title="@string/genre_mystery" />
+            <item
+                android:id="@+id/Genre_Romance"
+                android:title="@string/genre_romance" />
+            <item
+                android:id="@+id/Genre_Science"
+                android:title="@string/genre_science_fiction" />
+            <item
+                android:id="@+id/Genre_TV"
+                android:title="@string/genre_tv_movie" />
+            <item
+                android:id="@+id/Genre_Thriller"
+                android:title="@string/genre_thriller" />
+            <item
+                android:id="@+id/Genre_War"
+                android:title="@string/genre_war" />
+            <item
+                android:id="@+id/Genre_Western"
+                android:title="@string/genre_western" />
+
+        </menu>
+    </item>
+    <item
         android:id="@+id/sort"
         android:icon="@android:drawable/ic_menu_sort_alphabetically"
         android:orderInCategory="3"
@@ -23,22 +91,22 @@
     <menu>
         <item
             android:id="@+id/Sort_Option_A_To_Z"
-            android:title="@string/Sort_AToZ"></item>
+            android:title="@string/Sort_AToZ" />
         <item
             android:id="@+id/Sort_Option_Z_To_A"
-            android:title="@string/Sort_ZToA"></item>
+            android:title="@string/Sort_ZToA" />
         <item
             android:id="@+id/Sort_Option_Release_Asc"
-            android:title="@string/Release"></item>
+            android:title="@string/Release" />
         <item
             android:id="@+id/Sort_Option_Release_Dec"
-            android:title="@string/ReleaseDec"></item>
+            android:title="@string/ReleaseDec" />
         <item
             android:id="@+id/Sort_Option_Rating_Decreasing"
-            android:title="@string/RatingPositive"></item>
+            android:title="@string/RatingPositive" />
         <item
             android:id="@+id/Sort_Option_Rating_Increasing"
-            android:title="@string/RatingNegetive"></item>
+            android:title="@string/RatingNegetive" />
     </menu>
     </item>
     <item
@@ -54,37 +122,6 @@
             <item
                 android:id="@+id/Filter_Child"
                 android:title="@string/filter_Leeftijd_blacklist">
-            </item>
-            <item
-                android:id="@+id/Filter_Genre"
-                android:title="@string/filter_Genre">
-                <menu>
-                    <item
-                    android:id="@+id/Genre_Action"
-                    android:title="Action">
-                </item>
-                    <item
-                        android:id="@+id/Genre_Adventure"
-                        android:title="Adventure">
-                    </item>
-                    <item
-                        android:id="@+id/Genre_Animation"
-                        android:title="Animation">
-                    </item>
-                    <item
-                        android:id="@+id/Genre_Comedy"
-                        android:title="Comedy">
-                    </item>
-                    <item
-                        android:id="@+id/Genre_Crime"
-                        android:title="Crime">
-                    </item>
-                    <item
-                        android:id="@+id/Genre_Documentary"
-                        android:title="Documentary">
-                    </item>
-
-                </menu>
             </item>
         </menu>
     </item>
