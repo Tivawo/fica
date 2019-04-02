@@ -1,6 +1,6 @@
 package com.domain.fica;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +66,8 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail_movie, menu);
+        MenuItem menuItem = menu.findItem(R.id.share);
+        menuItem.setIntent(shareMovie());
         return true;
     }
 
@@ -83,6 +85,18 @@ public class DetailActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Intent shareMovie(){
+        Bundle extras = getIntent().getExtras();
+
+        Movie movie = (Movie) extras.getSerializable("MOVIE");
+
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Check out movie: " + movie.getTitle() +
+                "\nDescription: " + movie.getOverview() + "\nSee included image: " + movie.getPosterUrl());
+        return sharingIntent;
     }
 
 }
