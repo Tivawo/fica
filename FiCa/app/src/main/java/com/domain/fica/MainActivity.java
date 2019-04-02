@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity
         case 1:
         if(resultCode == RESULT_OK){
         filter.addAll(data.getStringArrayListExtra("Genres"));
-        Log.d(TAG, filter.get(1));
+        Log.d(TAG, filter.get(0));
         }
     }
     }
