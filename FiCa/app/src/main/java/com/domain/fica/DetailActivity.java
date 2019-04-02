@@ -89,6 +89,7 @@ public class DetailActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.share);
         menuItem.setIntent(shareMovie());
         return true;
+        //force the commit
     }
 
     @Override
