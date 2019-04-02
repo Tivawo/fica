@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         movieList = new ArrayList<Movie>();
 
         // Adapter voor de recyclerview
+
         movieAdapter = new MovieAdapter(this, movieList);
 
         // Recyclerview instellingen
