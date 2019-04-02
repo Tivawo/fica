@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import Data.Constants;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -58,14 +58,6 @@ public class MainActivity extends AppCompatActivity
 
         // Vars
         movieTask.setPage(1);
-
-        //Buttons
-        Button sortAZ = findViewById(R.id.Sort_Option_A_To_Z);
-        Button sortZA = findViewById(R.id.Sort_Option_Z_To_A);
-        Button sortNew = findViewById(R.id.Sort_Option_Release_Dec);
-        Button sortOld = findViewById(R.id.Sort_Option_Release_Asc);
-        Button sortRatingGB = findViewById(R.id.Sort_Option_Rating_Increasing);
-        Button sortRatingBG = findViewById(R.id.Sort_Option_Rating_Decreasing);
 
         // Lijst waar movies in komen
         movieList = new ArrayList<Movie>();
@@ -110,15 +102,37 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.share) {
-            return true;
-        }  else if (id == R.id.Filter_Genre){
-            startActivityForResult(new Intent(MainActivity.this, GenreFilter.class), 1);
-            return true;
+        Log.d(TAG, "onOptionsItemSelected: ");
+        switch (id) {
+            case R.id.Sort_Option_A_To_Z:
+                executeSort(Constants.SORT_ALPH_ASC);
+                break;
+            case R.id.Sort_Option_Z_To_A:
+                executeSort(Constants.SORT_ALPH_DESC);
+                break;
+            case R.id.Sort_Option_Rating_Decreasing:
+                executeSort(Constants.SORT_RATING_DESC);
+                break;
+            case R.id.Sort_Option_Rating_Increasing:
+                executeSort(Constants.SORT_RATING_ASC);
+                break;
+            case R.id.Sort_Option_Release_Asc:
+                executeSort(Constants.SORT_RELEASE_ASC);
+                break;
+            case R.id.Sort_Option_Release_Dec:
+                executeSort(Constants.SORT_RELEASE_DESC);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void executeSort(String sort){
+        Log.d(TAG, "executeSort: Called with sort: "+sort);
+        MovieTask movieTask= new MovieTask();
+        movieTask.setSort(sort);
+        movieTask.setOnMovieInfoAvailableListener(this);
+        movieTask.execute();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -167,17 +181,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
     }
-    
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.Sort_Option_A_To_Z:
-                MovieTask movieTask = new MovieTask();
-                movieTask.setSort(Constants.SORT_ALPH_ASC);
-                movieTask.execute();
-                break;
-        }
 
-
-    }
 }
