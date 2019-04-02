@@ -112,14 +112,17 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 }
 
                 //Correct nulls
-                if (posterUrl.contains("null")) {
-                    posterUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
-                }
                 if (overview=="") {
                     overview = "No description available";
                 }
                 if (backdropUrl.contains("null")) {
+                    backdropUrl = posterUrl;
+                }
+                if (backdropUrl.contains("null")) {
                     backdropUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
+                }
+                if (posterUrl.contains("null")) {
+                    posterUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
                 }
                 if (genres.length == 0 || genres == null) {
                     int[] genreNull = {1};
