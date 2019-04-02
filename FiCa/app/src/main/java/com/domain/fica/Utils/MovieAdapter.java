@@ -1,14 +1,18 @@
 package com.domain.fica.Utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.domain.fica.DetailActivity;
 import com.domain.fica.Domain.Movie;
 import com.domain.fica.R;
 import com.squareup.picasso.Picasso;
@@ -49,7 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieList.size();
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivMovieImage;
         TextView tvMovieText;
@@ -59,6 +63,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
             ivMovieImage = itemView.findViewById(R.id.iv_movie_item);
             tvMovieText = itemView.findViewById(R.id.tv_movie_text);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("ADAPATER","Klik op item" + getAdapterPosition());
+            Toast.makeText(v.getContext(), "Klik op item: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(v.getContext(), DetailActivity.class);
+
+            intent.putExtra("MOVIE", movieList.get(getAdapterPosition()));
+            v.getContext().startActivity(intent);
         }
     }
 

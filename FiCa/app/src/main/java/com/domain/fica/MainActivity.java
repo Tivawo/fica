@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     private MovieTask movieTask;
     private ArrayList<Movie> movieList;
     public static final String TAG = "MainActivity";
+    private ArrayList<String> filter = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,9 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.share) {
             return true;
+        }  else if (id == R.id.Filter_Genre){
+            startActivityForResult(new Intent(MainActivity.this, GenreFilter.class), 1);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -136,6 +140,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    public void ClearFilter() {
+        this.filter.clear();
+    }
+
+    public void AddToFilter(String filter){
+        this.filter.add(filter);
+    }
+
     @Override
     public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
         Log.d(TAG, "onMovieInfoAvailable: Called");
@@ -144,6 +156,18 @@ public class MainActivity extends AppCompatActivity
         this.movieAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+        case 1:
+        if(resultCode == RESULT_OK){
+        filter.addAll(data.getStringArrayListExtra("Genres"));
+        Log.d(TAG, filter.get(0));
+        }
+    }
+    }
+    
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

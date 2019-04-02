@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserListActivity" />
         <activity android:name=".DetailActivity" />
+        <activity android:name=".GenreFilter"/>
     </application>
 
 </manifest>
