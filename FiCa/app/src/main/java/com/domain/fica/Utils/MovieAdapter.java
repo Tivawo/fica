@@ -2,6 +2,7 @@ package com.domain.fica.Utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BlurMaskFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         Picasso.get().load(currentMovie.getPosterUrl()).fit().
                 centerInside().into(movieViewHolder.ivMovieImage);
     }
+
 
     @Override
     public int getItemCount() {

@@ -13,7 +13,9 @@
             android:id="@+id/img_detail_movie_picture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:foreground="#75000000"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,8 +28,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
                 android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
@@ -38,9 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
-                android:shadowRadius="1"
+                android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -50,9 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
-                android:shadowRadius="1"
+                android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -62,9 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
-                android:shadowRadius="1"
+                android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -74,9 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
-                android:shadowRadius="1"
+                android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -86,9 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:shadowColor="#000"
-                android:shadowDx="-1"
-                android:shadowDy="-1"
-                android:shadowRadius="1"
+                android:shadowRadius="20"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
