@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import Data.Genres;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView imgMovieDetailPicture;
@@ -77,6 +78,9 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieRating.setText("Popularity: " + String.valueOf(movie.getRating()));
         tvMovieDescription.setText("Description: " + movie.getOverview());
         Testprint = findViewById(R.id.Testprint);
+        Picasso.get().load(movie.getBackdropUrl()).
+                transform(new BlurTransformation(getApplicationContext(), 25, 1)).into(imgMovieDetailPicture);
+        imgMovieDetailPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
         toolbar();
     }
 
