@@ -94,6 +94,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 String posterUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.POSTERURL);
                 String backdropUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.BACKDROPURL);
                 String language = jsonMovie.getString(Constants.LANGUAGE);
+                Double rating = jsonMovie.getDouble(Constants.RATING);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
@@ -104,8 +105,8 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                     genres[g] = genreArray.getInt(g);
                 }
 
-                //Add to arraylist
-                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate);
+                //Add to movie & arraylist
+                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate, rating);
                 movieList.add(movie);
             }
             Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.domain.fica.Domain.Movie;
 import com.domain.fica.Utils.MovieAdapter;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -49,8 +51,17 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onCreate: Calling MovieTask");
         movieTask = new MovieTask();
         movieTask.setOnMovieInfoAvailableListener(this);
+
         // Vars
-        movieTask.setPage(2);
+        movieTask.setPage(1);
+
+        //Buttons
+        Button sortAZ;
+        Button sortZA;
+        Button sortNew;
+        Button sortOld;
+        Button sortRatingGB;
+        Button sortRatingBG;
 
         // Lijst waar movies in komen
         movieList = new ArrayList<Movie>();

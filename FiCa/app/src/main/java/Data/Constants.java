@@ -13,6 +13,7 @@ public class Constants {
     public static final String BACKDROPURL = "backdrop_path";
     public static final String GENREIDS = "genre_ids";
     public static final String RELEASEDATE = "release_date";
+    public static final String RATING="popularity";
 
     //URL GET COMPONENTS
     public static final String URL1 = "https://api.themoviedb.org/3/discover/movie?";

@@ -1,8 +1,9 @@
 package com.domain.fica.Domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Movie {
+public class Movie implements Serializable {
     private int ID;
     private String title;
     private int[] genres;
@@ -12,8 +13,9 @@ public class Movie {
     private String backdropUrl;
     private String language;
     private Date releaseDate;
+    private double rating;
 
-    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate) {
+    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating) {
         this.ID = ID;
         this.title = title;
         this.genres = genres;
@@ -23,6 +25,7 @@ public class Movie {
         this.backdropUrl = backdropUrl;
         this.language = language;
         this.releaseDate = releaseDate;
+        this.rating = rating;
     }
 
     public int getID() {
@@ -95,5 +98,13 @@ public class Movie {
 
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
