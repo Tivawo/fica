@@ -1,5 +1,6 @@
 package com.domain.fica;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         movieList = new ArrayList<Movie>();
 
         // Adapter voor de recyclerview
+
         movieAdapter = new MovieAdapter(this, movieList);
 
         // Recyclerview instellingen

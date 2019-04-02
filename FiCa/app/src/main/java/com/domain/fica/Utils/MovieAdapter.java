@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.domain.fica.DetailActivity;
 import com.domain.fica.Domain.Movie;
+import com.domain.fica.MainActivity;
 import com.domain.fica.R;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         movieViewHolder.tvMovieText.setText(movieText);
         Picasso.get().load(currentMovie.getPosterUrl()).fit().
                 centerInside().into(movieViewHolder.ivMovieImage);
+        Picasso.get().load(currentMovie.getBackdropSmall()).fit().transform(new BlurTransformation(context, 5, 1)).into(movieViewHolder.ivMovieBack);
     }
 
 
@@ -60,12 +62,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView ivMovieImage;
+        ImageView ivMovieBack;
         TextView tvMovieText;
 
         public MovieViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivMovieImage = itemView.findViewById(R.id.iv_movie_item);
+            ivMovieBack=itemView.findViewById(R.id.iv_movie_backdrop);
             tvMovieText = itemView.findViewById(R.id.tv_movie_text);
 
             itemView.setOnClickListener(this);

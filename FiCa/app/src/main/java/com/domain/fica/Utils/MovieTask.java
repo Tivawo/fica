@@ -95,6 +95,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 String backdropUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.BACKDROPURL);
                 String language = jsonMovie.getString(Constants.LANGUAGE);
                 Double rating = jsonMovie.getDouble(Constants.RATING);
+                String backdropSmall="http://image.tmdb.org/t/p/w300/" + jsonMovie.getString(Constants.BACKDROPURL);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date releasedate;
@@ -117,9 +118,11 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 }
                 if (backdropUrl.contains("null")) {
                     backdropUrl = posterUrl;
+                    backdropSmall=posterUrl;
                 }
                 if (backdropUrl.contains("null")) {
                     backdropUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
+                    backdropSmall=backdropUrl;
                 }
                 if (posterUrl.contains("null")) {
                     posterUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
@@ -130,7 +133,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 }
 
                 //Add to movie & arraylist
-                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate, rating);
+                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate, rating, backdropSmall);
                 movieList.add(movie);
             }
             Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");

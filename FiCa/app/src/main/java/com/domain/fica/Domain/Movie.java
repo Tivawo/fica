@@ -14,8 +14,9 @@ public class Movie implements Serializable {
     private String language;
     private Date releaseDate;
     private double rating;
+    private String backdropSmall;
 
-    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating) {
+    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating, String backdropSmall) {
         this.ID = ID;
         this.title = title;
         this.genres = genres;
@@ -26,6 +27,7 @@ public class Movie implements Serializable {
         this.language = language;
         this.releaseDate = releaseDate;
         this.rating = rating;
+        this.backdropSmall = backdropSmall;
     }
 
     public int getID() {
@@ -106,5 +108,9 @@ public class Movie implements Serializable {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getBackdropSmall() {
+        return backdropSmall;
     }
 }
