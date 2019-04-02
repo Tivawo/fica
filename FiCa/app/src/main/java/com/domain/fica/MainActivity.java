@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG = "MainActivity";
     private ArrayList<String> filter = new ArrayList<String>();
     private String sort = Constants.SORT_RATING_DESC;
+    private String genre = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,9 +134,82 @@ public class MainActivity extends AppCompatActivity
                 Constants.AdultBool = Constants.FALSE;
                 reload();
                 break;
-//            case R.id.Filter_Genre:
-//                startActivityForResult(new Intent(MainActivity.this, GenreFilter.class), 1);
-//                return true;
+            case R.id.Genre_Action:
+                Constants.genreId = "28";
+                reload();
+                break;
+            case R.id.Genre_Adventure:
+                Constants.genreId = "12";
+                reload();
+                break;
+            case R.id.Genre_All:
+                Constants.genreId = "";
+                reload();
+                break;
+            case R.id.Genre_Comedy:
+                Constants.genreId = "35";
+                reload();
+                break;
+            case R.id.Genre_Crime:
+                Constants.genreId = "80";
+                reload();
+                break;
+            case R.id.Genre_Documentary:
+                Constants.genreId = "99";
+                reload();
+                break;
+            case R.id.Genre_Drama:
+                Constants.genreId = "18";
+                reload();
+                break;
+            case R.id.Genre_Family:
+                Constants.genreId = "10751";
+                reload();
+                break;
+            case R.id.Genre_Fantasy:
+                Constants.genreId = "14";
+                reload();
+                break;
+            case R.id.Genre_History:
+                Constants.genreId = "36";
+                reload();
+                break;
+            case R.id.Genre_Horror:
+                Constants.genreId = "27";
+                reload();
+                break;
+            case R.id.Genre_Music:
+                Constants.genreId = "10402";
+                reload();
+                break;
+            case R.id.Genre_Mystery:
+                Constants.genreId = "9648";
+                reload();
+                break;
+            case R.id.Genre_Romance:
+                Constants.genreId = "10749";
+                reload();
+                break;
+            case R.id.Genre_Science:
+                Constants.genreId = "878";
+                reload();
+                break;
+            case R.id.Genre_TV:
+                Constants.genreId = "10770";
+                reload();
+                break;
+            case R.id.Genre_Thriller:
+                Constants.genreId = "53";
+                reload();
+                break;
+            case R.id.Genre_War:
+                Constants.genreId = "10752";
+                reload();
+                break;
+            case R.id.Genre_Western:
+                Constants.genreId = "37";
+                reload();
+                break;
 
         }
         return super.onOptionsItemSelected(item);
@@ -146,6 +220,7 @@ public class MainActivity extends AppCompatActivity
         this.sort = sort;
         MovieTask movieTask = new MovieTask();
         movieTask.setSort(sort);
+        movieTask.setGenres(Constants.genreId);
         movieTask.setOnMovieInfoAvailableListener(this);
         movieTask.execute();
     }
