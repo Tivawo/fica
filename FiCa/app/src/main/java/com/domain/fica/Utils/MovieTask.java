@@ -41,7 +41,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
         try {
             //Establish url
-            URL url = new URL(urlBuilder(page, sort, adult, genres));
+            URL url = new URL(urlBuilder(page, sort, Constants.AdultBool, genres));
             URLConnection urlConnection = url.openConnection();
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;

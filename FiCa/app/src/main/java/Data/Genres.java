@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Genres {
+
     public String getGenre(int[] ints) {
         ArrayList<String> genreList = new ArrayList<>();
 
@@ -73,5 +74,6 @@ public class Genres {
         }
         return genreList.toString();
     }
+
 
 }
