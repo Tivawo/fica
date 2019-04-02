@@ -28,10 +28,10 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private final String TAG = "MovieTask";
     private MovieTaskListener listener;
     private String jsonResponse;
-    private int page=1;
-    private String sort="";
-    private String adult="true";
-    private String genres="";
+    private int page = 1;
+    private String sort = "";
+    private String adult = "true";
+    private String genres = "";
 
     public void setOnMovieInfoAvailableListener(MovieTaskListener listener) {
         this.listener = listener;
@@ -50,7 +50,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             httpURLConnection.connect();
 
             //Confirm OK
-            Log.d(TAG, "doInBackground: URL Return code: "+httpURLConnection.getResponseCode());
+            Log.d(TAG, "doInBackground: URL Return code: " + httpURLConnection.getResponseCode());
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = httpURLConnection.getInputStream();
                 Scanner scanner = new Scanner(in);
@@ -68,7 +68,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         }
         //Return raw response
         Log.d(TAG, "doInBackground: Returning raw json String");
-        Log.d(TAG, "doInBackground: String: "+jsonResponse);
+        Log.d(TAG, "doInBackground: String: " + jsonResponse);
         return jsonResponse;
     }
 
@@ -97,12 +97,33 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 Double rating = jsonMovie.getDouble(Constants.RATING);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
+                Date releasedate;
+                if (!jsonMovie.getString(Constants.RELEASEDATE).isEmpty() && jsonMovie.getString(Constants.RELEASEDATE) != null) {
+                    releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
+                } else {
+                    Log.d(TAG, "onPostExecute: date is null, setting to default...");
+                    releasedate = dateFormat.parse("2000-01-01");
+                }
 
                 JSONArray genreArray = jsonMovie.getJSONArray(Constants.GENREIDS);
                 int[] genres = new int[genreArray.length()];
                 for (int g = 0; g < genreArray.length(); g++) {
                     genres[g] = genreArray.getInt(g);
+                }
+
+                //Correct nulls
+                if (posterUrl.contains("null")) {
+                    posterUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
+                }
+                if (overview=="") {
+                    overview = "No description available";
+                }
+                if (backdropUrl.contains("null")) {
+                    backdropUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
+                }
+                if (genres.length == 0 || genres == null) {
+                    int[] genreNull = {1};
+                    genres = genreNull;
                 }
 
                 //Add to movie & arraylist
@@ -126,8 +147,8 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
 
     private String urlBuilder(int page, String sort, String adult, String genres) {
         //BUILD API URL HERE (With constants)
-        String url = Constants.URL1+Constants.PAGE+page+Constants.SORT+sort+Constants.ISADULT+adult+Constants.GENRE+genres+Constants.URL2;
-        Log.d(TAG, "urlBuilder: url:"+url);
+        String url = Constants.URL1 + Constants.PAGE + page + Constants.SORT + sort + Constants.ISADULT + adult + Constants.GENRE + genres + Constants.URL2;
+        Log.d(TAG, "urlBuilder: url:" + url);
         return url;
     }
 
