@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 
 import com.domain.fica.Domain.Movie;
@@ -21,8 +22,10 @@ import com.domain.fica.Utils.MovieTask;
 
 import java.util.ArrayList;
 
+import Data.Constants;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnClickListener {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -56,12 +59,12 @@ public class MainActivity extends AppCompatActivity
         movieTask.setPage(1);
 
         //Buttons
-        Button sortAZ;
-        Button sortZA;
-        Button sortNew;
-        Button sortOld;
-        Button sortRatingGB;
-        Button sortRatingBG;
+        Button sortAZ = findViewById(R.id.Sort_Option_A_To_Z);
+        Button sortZA = findViewById(R.id.Sort_Option_Z_To_A);
+        Button sortNew = findViewById(R.id.Sort_Option_Release_Dec);
+        Button sortOld = findViewById(R.id.Sort_Option_Release_Asc);
+        Button sortRatingGB = findViewById(R.id.Sort_Option_Rating_Increasing);
+        Button sortRatingBG = findViewById(R.id.Sort_Option_Rating_Decreasing);
 
         // Lijst waar movies in komen
         movieList = new ArrayList<Movie>();
@@ -141,4 +144,16 @@ public class MainActivity extends AppCompatActivity
         this.movieAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.Sort_Option_A_To_Z:
+                MovieTask movieTask = new MovieTask();
+                movieTask.setSort(Constants.SORT_ALPH_ASC);
+                movieTask.execute();
+                break;
+        }
+
+
+    }
 }

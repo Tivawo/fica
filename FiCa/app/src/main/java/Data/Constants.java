@@ -19,7 +19,7 @@ public class Constants {
     public static final String URL1 = "https://api.themoviedb.org/3/discover/movie?";
     public static final String URL2 = "&api_key=179637ebc077ce9fa33365aa808e3985";
     public static final String PAGE = "&page=";
-    public static final String ISADULT= "&adult=";
+    public static final String ISADULT= "&include_adult=";
     public static final String FALSE= "false";
     public static final String TRUE= "true";
     public static final String GENRE= "&with_genres=";
