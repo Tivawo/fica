@@ -1,4 +1,4 @@
-package Data;
+package com.domain.fica.Data;
 
 public class Constants {
 

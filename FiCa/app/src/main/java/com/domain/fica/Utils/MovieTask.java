@@ -15,14 +15,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import Data.Constants;
+import com.domain.fica.Data.Constants;
 
 public class MovieTask extends AsyncTask<Void, Void, String> {
     private final String TAG = "MovieTask";
@@ -87,7 +86,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             for (int i = 0; i < movies.length(); i++) {
                 JSONObject jsonMovie = movies.getJSONObject(i);
                 //Extract data
-                int ID = jsonMovie.getInt(Constants.ID);
+                int movieId = jsonMovie.getInt(Constants.ID);
                 String title = jsonMovie.getString(Constants.TITLE);
                 boolean adult = jsonMovie.getBoolean(Constants.ADULT);
                 String overview = jsonMovie.getString(Constants.OVERVIEW);
@@ -135,7 +134,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 }
 
                 //Add to movie & arraylist
-                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl,
+                Movie movie = new Movie(movieId, title, genres, adult, overview, posterUrl, backdropUrl,
                         language, releasedate, rating, backdropSmall, voteAvg);
                 movieList.add(movie);
             }

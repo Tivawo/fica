@@ -10,15 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintJob;
 import android.print.PrintManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,10 +22,20 @@ import com.domain.fica.Domain.Movie;
 import com.domain.fica.Utils.ListprintDocumentAdapter;
 import com.domain.fica.Utils.MovieAdapter;
 import com.domain.fica.Utils.MovieTask;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import Data.Constants;
+import com.domain.fica.Data.Constants;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener,
@@ -86,12 +87,12 @@ public class MainActivity extends AppCompatActivity
         movieList = new ArrayList<Movie>();
 
         // Adapter voor de recyclerview
-        movieAdapter = new MovieAdapter(this, movieList);
+        movieAdapter = new MovieAdapter(this, movieList, R.layout.movie_item);
 
         // Recyclerview instellingen
-        recyclerView = findViewById(R.id.rv_recycler);
+        recyclerView = findViewById(R.id.rv_main);
         layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(movieAdapter);
@@ -356,7 +357,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_movie_overview) {
             // Handle the camera action
         } else if (id == R.id.nav_list_overview) {
-            Intent intent = new Intent(MainActivity.this, ListOverviewActivity.class);
+            Intent intent = new Intent(MainActivity.this, UserListActivity.class);
             startActivity(intent);
             Log.d(TAG, "onNavigationItemSelected: Starting listoverview");
 

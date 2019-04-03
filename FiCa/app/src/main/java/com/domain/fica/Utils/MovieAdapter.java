@@ -2,8 +2,6 @@ package com.domain.fica.Utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,25 +19,28 @@ import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     //Attributes
     private final String TAG = "MovieAdapter";
     private Context context;
     private ArrayList<Movie> movieList;
+    private int layoutId;
 
-    //Constructor
-    public MovieAdapter(Context context, ArrayList<Movie> movieList) {
+    public MovieAdapter(Context context, ArrayList<Movie> movieList, int layoutId) {
         this.context = context;
         this.movieList = movieList;
+        this.layoutId = layoutId;
     }
 
     //Methods
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        Log.d(TAG, "onCreateViewHolder: Called");
-        View listRow = LayoutInflater.from(context).inflate(R.layout.movie_item,
+        View listRow = LayoutInflater.from(context).inflate(layoutId,
                 viewGroup, false);
         return new MovieViewHolder(listRow);
     }

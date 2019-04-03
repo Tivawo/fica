@@ -7,26 +7,28 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.domain.fica.Data.DBRepository;
 import com.domain.fica.Domain.Movie;
 import com.domain.fica.Utils.DetailPrintDocumentAdapter;
 import com.squareup.picasso.Picasso;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import Data.Genres;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
+
     //Attributes
     private final String TAG = "DetailActivity";
     private ImageView imgMovieDetailPicture;
@@ -37,10 +39,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private TextView tvMovieRating;
     private TextView tvMovieDescription;
     private String age;
+    private Movie movie;
+    private DBRepository dbRepository;
     private FrameLayout printDetail;
     private Bitmap bitmap;
     private Button reviewBtn;
-    private Movie movie;
     private TextView tvMovieReviews;
 
     //Methods
@@ -51,6 +54,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_detail);
 
         //Link to layout
+        dbRepository = new DBRepository(getApplication());
         imgMovieDetailPicture = findViewById(R.id.img_detail_movie_picture);
         tvMovieTitle = findViewById(R.id.tv_movie_title);
         tvMovieReleaseDate = findViewById(R.id.tv_movie_release_date);
@@ -144,6 +148,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void saveMovie(View view) {
+        dbRepository.create(movie);
+    }
+
 
     public static Bitmap loadBitmapFromView(View v, int width, int height) {
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);

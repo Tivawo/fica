@@ -16,6 +16,14 @@
             android:scaleType="centerCrop"
             android:foreground="#75000000"/>
 
+    <Button
+        android:id="@+id/btn_add_movie"
+        android:text="Add to my list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:onClick="saveMovie"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
