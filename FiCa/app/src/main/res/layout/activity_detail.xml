@@ -16,6 +16,9 @@
             android:foreground="#75000000"
             android:scaleType="centerCrop" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
