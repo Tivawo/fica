@@ -1,13 +1,52 @@
 package com.domain.fica;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class UserListActivity extends AppCompatActivity {
+import com.domain.fica.Data.DBRepository;
+import com.domain.fica.Domain.Movie;
+import com.domain.fica.Utils.MovieAdapter;
+import com.domain.fica.Utils.UserListTask;
+
+import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class UserListActivity extends AppCompatActivity implements UserListTask.UserListTaskListener{
+
+    private RecyclerView recyclerView;
+    private MovieAdapter MovieAdapter;
+    private DBRepository dbRepository;
+    private ArrayList<Movie> movies;
+    private UserListTask userListTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+
+        movies = new ArrayList<Movie>();
+
+        dbRepository = new DBRepository(getApplication());
+
+        userListTask = new UserListTask(getApplication(), this);
+
+        recyclerView = findViewById(R.id.rv_custom);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        MovieAdapter = new MovieAdapter(this, movies,  R.layout.custom_movie_item);
+        recyclerView.setAdapter(MovieAdapter);
+
+        userListTask.execute();
     }
+
+    @Override
+    public void onListAvailable(ArrayList<Movie> movies) {
+        this.movies.clear();
+        this.movies.addAll(movies);
+        MovieAdapter.notifyDataSetChanged();
+    }
+
 }

@@ -1,16 +1,20 @@
 package com.domain.fica;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.domain.fica.Data.DBRepository;
 import com.domain.fica.Domain.Movie;
 import com.squareup.picasso.Picasso;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class DetailActivity extends AppCompatActivity {
+
     private ImageView imgMovieDetailPicture;
     private TextView tvMovieTitle;
     private TextView tvMovieReleaseDate;
@@ -19,14 +23,15 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvMovieRating;
     private TextView tvMovieDescription;
     private String age;
-
-
+    private Movie movie;
+    private DBRepository dbRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        dbRepository = new DBRepository(getApplication());
         imgMovieDetailPicture = findViewById(R.id.img_detail_movie_picture);
         tvMovieTitle = findViewById(R.id.tv_movie_title);
         tvMovieReleaseDate = findViewById(R.id.tv_movie_release_date);
@@ -37,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        Movie movie = (Movie)extras.getSerializable("MOVIE");
+        movie = (Movie)extras.getSerializable("MOVIE");
 
         if(movie.isAdult()){
             age = "Adult";
@@ -73,4 +78,9 @@ public class DetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void saveMovie(View view) {
+        dbRepository.create(movie);
+    }
+
 }

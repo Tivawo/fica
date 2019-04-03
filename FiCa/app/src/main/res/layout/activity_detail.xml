@@ -3,11 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:id="@+id/img_detail_movie_picture"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,6 +81,15 @@
             android:id="@+id/tv_movie_description"
             android:textSize="18sp"
             android:layout_margin="5dp"/>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_movie"
+        android:text="Add to my list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:onClick="saveMovie"/>
 
 </FrameLayout>

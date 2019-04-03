@@ -26,4 +26,5 @@
     <string name="action_settings">Settings</string>
     <string name="Genre_Filter_Cancel">Cancel</string>
     <string name="Genre_Filter_Submit">Submit</string>
+    <string name="title_activity_user_list_overview">UserListOverviewActivity</string>
 </resources>

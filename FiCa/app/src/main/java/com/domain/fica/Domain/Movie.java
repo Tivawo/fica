@@ -1,10 +1,22 @@
 package com.domain.fica.Domain;
 
+import com.domain.fica.Data.ArrayConverter;
+import com.domain.fica.Data.DateConverter;
+
 import java.io.Serializable;
 import java.util.Date;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+@Entity(tableName = "movie_table")
+@TypeConverters({DateConverter.class, ArrayConverter.class})
 public class Movie implements Serializable {
-    private int ID;
+
+    @PrimaryKey
+    private int id;
     private String title;
     private int[] genres;
     private boolean adult;
@@ -15,8 +27,8 @@ public class Movie implements Serializable {
     private Date releaseDate;
     private double rating;
 
-    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating) {
-        this.ID = ID;
+    public Movie(int id, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating) {
+        this.id = id;
         this.title = title;
         this.genres = genres;
         this.adult = adult;
@@ -28,12 +40,12 @@ public class Movie implements Serializable {
         this.rating = rating;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int ID) {
+        this.id = ID;
     }
 
     public String getTitle() {
