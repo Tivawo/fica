@@ -67,7 +67,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
         //Return raw response
-        Log.d(TAG, "doInBackground: Returning raw json String");
+        Log.d(TAG, "doInBackground: Returning raw json String...");
         Log.d(TAG, "doInBackground: String: " + jsonResponse);
         return jsonResponse;
     }
@@ -142,7 +142,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");
             listener.onMovieInfoAvailable(movieList);
             Log.d(TAG, "onPostExecute: Movie list sent to MainActivity with: " +
-                    movieList.size() + " results.");
+                    movieList.size() + " results as page: " + page);
 
             //Catch errors
         } catch (JSONException e) {
@@ -159,23 +159,27 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private String urlBuilder(int page, String sort, String adult, String genres) {
         //BUILD API URL HERE (With constants)
         String url = Constants.URL1 + Constants.PAGE + page + Constants.SORT + sort + Constants.ISADULT + adult + Constants.GENRE + genres + Constants.URL2;
-        Log.d(TAG, "urlBuilder: url:" + url);
+        Log.d(TAG, "urlBuilder: built url:" + url);
         return url;
     }
 
     public void setPage(int page) {
+        Log.d(TAG, "setPage: Page set to: " + page);
         this.page = page;
     }
 
     public void setSort(String sort) {
+        Log.d(TAG, "setSort: Sorting set to: " + sort);
         this.sort = sort;
     }
 
     public void setAdult(String adult) {
+        Log.d(TAG, "setAdult: Adult set to: " + adult);
         this.adult = adult;
     }
 
     public void setGenres(String genres) {
+        Log.d(TAG, "setGenres: Genre set to: " + genres);
         this.genres = genres;
     }
 

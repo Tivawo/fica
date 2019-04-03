@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
     //Sorting & Functionality Attributes
     private String sort = Constants.SORT_RATING_DESC;
     private static int first;
-    private int page=2;
+    private int page = 2;
     private Bitmap bitmap;
     private FrameLayout listprint;
     private WebView mWebView;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(movieAdapter);
-        first= layoutManager.findFirstVisibleItemPosition();
+        first = layoutManager.findFirstVisibleItemPosition();
         recyclerView.setOnScrollChangeListener(this);
 
         // Voer asynctask uit, maak kopie voor filters
@@ -143,8 +143,8 @@ public class MainActivity extends AppCompatActivity
             public boolean onQueryTextChange(String s) {
                 ArrayList<Movie> results = new ArrayList<>();
 
-                for(Movie m : movieList) {
-                    if(m.getTitle().toLowerCase().contains(s)){
+                for (Movie m : movieList) {
+                    if (m.getTitle().toLowerCase().contains(s)) {
                         results.add(m);
                     }
 
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity
             for (int i = 0; i < size; i++) {
                 RecyclerView.ViewHolder holder = adapter.createViewHolder(view, adapter.getItemViewType(i));
                 adapter.onBindViewHolder(holder, i);
-                
+
                 holder.itemView.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY),
                         View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
                 holder.itemView.layout(0, 0, holder.itemView.getMeasuredWidth(), holder.itemView.getMeasuredHeight());
@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity
             String jobName = this.getString(R.string.app_name) +
                     " Document";
 
-            ListprintDocumentAdapter printAdapter =new ListprintDocumentAdapter(MainActivity.this, bitmapCache);
+            ListprintDocumentAdapter printAdapter = new ListprintDocumentAdapter(MainActivity.this, bitmapCache);
             PrintJob print = printManager.print(jobName, printAdapter,
                     null);
         }
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity
         movieTask.setOnMovieInfoAvailableListener(this);
         movieList.clear();
         movieTask.execute();
-        first=layoutManager.findFirstVisibleItemPosition();
+        first = layoutManager.findFirstVisibleItemPosition();
     }
 
     //Reload the movielist with set values and page 1.
@@ -371,17 +371,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     //When a scroll in the recyclerview is detected.
     public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        int currentFirst=layoutManager.findFirstVisibleItemPosition();
+        int currentFirst = layoutManager.findFirstVisibleItemPosition();
 
-        if (currentFirst>first+10){
+        if (currentFirst > first + 10) {
             MovieTask movieTask = new MovieTask();
             movieTask.setPage(page);
             movieTask.setSort(this.sort);
             movieTask.setAdult(Constants.AdultBool);
             movieTask.setGenres(Constants.genreId);
-            Log.d(TAG, "onScrollChange: Adding page: "+page);
+            Log.d(TAG, "onScrollChange: Adding page: " + page);
             page++;
-            first=currentFirst+10;
+            first = currentFirst + 10;
             movieTask.setOnMovieInfoAvailableListener(this);
             movieTask.execute();
         }
@@ -390,9 +390,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     //For pairing the search button with list generation.
     public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId()==R.id.action_search){
+        if (item.getItemId() == R.id.action_search) {
             movieList.clear();
-            for (int i=1; i<10; i++){
+            for (int i = 1; i < 10; i++) {
                 MovieTask movieTask = new MovieTask();
                 movieTask.setPage(i);
                 movieTask.setSort(this.sort);

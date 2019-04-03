@@ -42,7 +42,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         reviewEt = findViewById(R.id.et_write_review);
 
         Bundle extras = getIntent().getExtras();
-        movie = (Movie)extras.getSerializable("MOVIE");
+        movie = (Movie) extras.getSerializable("MOVIE");
 
         tvMovieTitle.setText(movie.getTitle());
         Picasso.get().load(movie.getBackdropUrl()).
@@ -51,6 +51,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void toolbar() {
+        Log.d(TAG, "toolbar: Called");
         ActionBar actionback = getSupportActionBar();
         actionback.setTitle(getResources().getString(R.string.write_a_review));
         actionback.setDisplayHomeAsUpEnabled(true);
@@ -58,12 +59,14 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d(TAG, "onOptionsItemSelected: Finishing...");
         finish();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onClick(View v) {
+        Log.d(TAG, "onClick: Called");
         movie.addReview(reviewEt.getText().toString());
         System.out.println(movie.getReviews().size());
         reviewEt.setText("");

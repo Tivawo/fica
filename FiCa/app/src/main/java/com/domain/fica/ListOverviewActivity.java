@@ -15,9 +15,15 @@ import android.view.MenuItem;
 
 import com.domain.fica.Utils.MovieTask;
 
-public class ListOverviewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ListOverviewActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
+    //Attributes
+    private final String TAG = "ListOverviewActivity";
+
+    //Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -35,6 +41,7 @@ public class ListOverviewActivity extends AppCompatActivity implements Navigatio
 
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "onBackPressed: Called");
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -45,6 +52,7 @@ public class ListOverviewActivity extends AppCompatActivity implements Navigatio
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Log.d(TAG, "onNavigationItemSelected: Called");
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

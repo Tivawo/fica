@@ -14,11 +14,14 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.pdf.PrintedPdfDocument;
+import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
+    //Attributes
+    private final String TAG = "DetailPrintDocumentAdapter";
     Context context;
     private int pageHeight;
     private int pageWidth;
@@ -26,16 +29,21 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
     public int totalpages = 1;
     private Bitmap bitmap;
 
+
+    //Constructor
     public DetailPrintDocumentAdapter(Context context, Bitmap bitmap) {
         this.context = context;
         this.bitmap = bitmap;
     }
 
+    //Methods
     @Override
-    public void onWrite(final PageRange[] pageRanges,
-                        final ParcelFileDescriptor destination,
-                        final CancellationSignal cancellationSignal,
-                        final WriteResultCallback callback) {
+    public void onWrite(
+            final PageRange[] pageRanges,
+            final ParcelFileDescriptor destination,
+            final CancellationSignal cancellationSignal,
+            final WriteResultCallback callback) {
+        Log.d(TAG, "onWrite: Called");
 
         for (int i = 0; i < totalpages; i++) {
             if (pageInRange(pageRanges, i)) {
@@ -71,11 +79,13 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
     }
 
     @Override
-    public void onLayout(PrintAttributes oldAttributes,
-                         PrintAttributes newAttributes,
-                         CancellationSignal cancellationSignal,
-                         LayoutResultCallback callback,
-                         Bundle metadata) {
+    public void onLayout(
+            PrintAttributes oldAttributes,
+            PrintAttributes newAttributes,
+            CancellationSignal cancellationSignal,
+            LayoutResultCallback callback,
+            Bundle metadata) {
+        Log.d(TAG, "onLayout: Called");
 
         myPdfDocument = new PrintedPdfDocument(context, newAttributes);
 
@@ -102,8 +112,10 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
         }
     }
 
-    private void drawPage(PdfDocument.Page page,
-                          int pagenumber) {
+    private void drawPage(
+            PdfDocument.Page page,
+            int pagenumber) {
+        Log.d(TAG, "drawPage: Called with page: " + pagenumber);
         Canvas canvas = page.getCanvas();
 
         pagenumber++; // Make sure page numbers start at 1
@@ -124,6 +136,7 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
     }
 
     private boolean pageInRange(PageRange[] pageRanges, int page) {
+        Log.d(TAG, "pageInRange: Called");
         for (int i = 0; i < pageRanges.length; i++) {
             if ((page >= pageRanges[i].getStart()) &&
                     (page <= pageRanges[i].getEnd()))

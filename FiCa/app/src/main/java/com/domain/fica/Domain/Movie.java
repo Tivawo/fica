@@ -33,7 +33,7 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.backdropSmall = backdropSmall;
-        this.voteAvg=voteAvg;
+        this.voteAvg = voteAvg;
 
     }
 
@@ -73,8 +73,9 @@ public class Movie implements Serializable {
     public Date getReleaseDate() {
         return releaseDate;
     }
-    public int getReleaseYear(){
-        return releaseDate.getYear()+1900;
+
+    public int getReleaseYear() {
+        return releaseDate.getYear() + 1900;
     }
 
     public double getRating() {
@@ -84,6 +85,7 @@ public class Movie implements Serializable {
     public String getBackdropSmall() {
         return backdropSmall;
     }
+
     public double getVoteAvg() {
         return voteAvg;
     }

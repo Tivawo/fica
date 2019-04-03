@@ -27,6 +27,8 @@ import Data.Genres;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
+    //Attributes
+    private final String TAG = "DetailActivity";
     private ImageView imgMovieDetailPicture;
     private TextView tvMovieTitle;
     private TextView tvMovieReleaseDate;
@@ -41,11 +43,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private Movie movie;
     private TextView tvMovieReviews;
 
+    //Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: Called");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        //Link to layout
         imgMovieDetailPicture = findViewById(R.id.img_detail_movie_picture);
         tvMovieTitle = findViewById(R.id.tv_movie_title);
         tvMovieReleaseDate = findViewById(R.id.tv_movie_release_date);
@@ -58,16 +63,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         Bundle extras = getIntent().getExtras();
 
-        movie = (Movie)extras.getSerializable("MOVIE");
+        movie = (Movie) extras.getSerializable("MOVIE");
 
-        if(movie.isAdult()){
+        if (movie.isAdult()) {
             age = "Adult";
         } else {
             age = "Child/Teen";
         }
 
+        Log.d(TAG, "onCreate: Calling onResume...");
         onResume();
 
+        Log.d(TAG, "onCreate: Assigning values...");
         Picasso.get().load(movie.getBackdropUrl()).into(imgMovieDetailPicture);
         tvMovieTitle.setText("Title: " + movie.getTitle());
         tvMovieReleaseDate.setText("Release date: " + movie.getReleaseDate().toString());
@@ -79,6 +86,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         Picasso.get().load(movie.getBackdropUrl()).
                 transform(new BlurTransformation(getApplicationContext(), 25, 1)).into(imgMovieDetailPicture);
         imgMovieDetailPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Log.d(TAG, "onCreate: Calling toolbar...");
         toolbar();
         reviewBtn.setOnClickListener(this);
 
@@ -86,6 +94,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "onResume: Called");
         super.onResume();
         if (movie.getReviews().size() == 0) {
             tvMovieReviews.setText("No reviews available yet");
@@ -93,13 +102,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
             String reviews = "";
 
             for (int i = 1; i < movie.getReviews().size() + 1; i++) {
-                reviews += "Review #" + i + "\n" + movie.getReviews().get(i -1) +  "\n\n";
+                reviews += "Review #" + i + "\n" + movie.getReviews().get(i - 1) + "\n\n";
             }
             tvMovieReviews.setText(reviews);
         }
     }
 
     private void toolbar() {
+        Log.d(TAG, "toolbar: Called.");
         ActionBar actionback = getSupportActionBar();
         actionback.setTitle(getResources().getString(R.string.app_name));
         actionback.setDisplayHomeAsUpEnabled(true);
@@ -107,6 +117,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: Called");
         getMenuInflater().inflate(R.menu.detail_movie, menu);
         MenuItem menuItem = menu.findItem(R.id.share);
         menuItem.setIntent(shareMovie());
@@ -117,17 +128,18 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        Log.d(TAG, "onOptionsItemSelected: Called");
         //noinspection SimplifiableIfStatement
         if (id == R.id.print) {
             String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
-            bitmap = loadBitmapFromView(printDetail, printDetail.getWidth()+40, printDetail.getHeight()+40);
+            bitmap = loadBitmapFromView(printDetail, printDetail.getWidth() + 40, printDetail.getHeight() + 40);
             printDocument(printDetail);
-            Log.d("DetailActivity a",dir);
+            Log.d(TAG, dir);
             return true;
         } else if (id == R.id.share) {
 
         } else {
-
+            Log.d(TAG, "onOptionsItemSelected: Finished. Closing...");
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -142,6 +154,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public Intent shareMovie() {
+        Log.d(TAG, "shareMovie: Called");
         Bundle extras = getIntent().getExtras();
 
         Movie movie = (Movie) extras.getSerializable("MOVIE");
@@ -153,8 +166,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         return sharingIntent;
     }
 
-    public void printDocument(View view)
-    {
+    public void printDocument(View view) {
         PrintManager printManager = (PrintManager) this
                 .getSystemService(Context.PRINT_SERVICE);
 
@@ -167,13 +179,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Log.d("DetailActivity", "onClick called");
+        Log.d(TAG, "onClick called");
         Intent intent = new Intent(v.getContext(), ReviewActivity.class);
 
         intent.putExtra("MOVIE", movie);
 
         v.getContext().startActivity(intent);
-        Log.d("DetailActivity", "intent created and started activity");
+        Log.d(TAG, "intent created and started activity");
         finish();
     }
 }

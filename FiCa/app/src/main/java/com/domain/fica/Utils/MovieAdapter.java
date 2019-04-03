@@ -24,7 +24,7 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     //Attributes
-    private final String TAG="MovieAdapter";
+    private final String TAG = "MovieAdapter";
     private Context context;
     private ArrayList<Movie> movieList;
 
@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        Log.d(TAG, "onBindViewHolder: Called with int i="+i);
+        Log.d(TAG, "onBindViewHolder: Called with int i=" + i);
         Movie currentMovie = movieList.get(i);
         String age;
 

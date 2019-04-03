@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class ListprintDocumentAdapter extends PrintDocumentAdapter {
 
+    //Attributes
+    private final String TAG = "ListprintDocumentadapter";
     private final Context context;
     private final ArrayList<Bitmap> bitmap;
     private int pageHeight;
@@ -31,26 +33,29 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
     public int totalpages;
     private int itemcounter = 0;
 
+    //Constructor
     public ListprintDocumentAdapter(Context context, ArrayList<Bitmap> bitmap) {
         this.context = context;
         this.bitmap = bitmap;
-        bitmap.add(Bitmap.createBitmap(100,100,Bitmap.Config.ARGB_8888));
-        int minsize = bitmap.size()/2;
-        Log.d("bitmap size/2", ""+minsize);
-        if (minsize>=25){
+        bitmap.add(Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888));
+        int minsize = bitmap.size() / 2;
+        Log.d("bitmap size/2", "" + minsize);
+        if (minsize >= 25) {
             totalpages = 25;
-        } else{
+        } else {
             totalpages = minsize;
         }
 
     }
 
     @Override
-    public void onWrite(final PageRange[] pageRanges,
-                        final ParcelFileDescriptor destination,
-                        final CancellationSignal cancellationSignal,
-                        final PrintDocumentAdapter.WriteResultCallback callback) {
+    public void onWrite(
+            final PageRange[] pageRanges,
+            final ParcelFileDescriptor destination,
+            final CancellationSignal cancellationSignal,
+            final PrintDocumentAdapter.WriteResultCallback callback) {
 
+        Log.d(TAG, "onWrite: Called");
         for (int i = 0; i < totalpages; i++) {
             if (pageInRange(pageRanges, i)) {
                 PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(pageWidth,
@@ -85,11 +90,14 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
     }
 
     @Override
-    public void onLayout(PrintAttributes oldAttributes,
-                         PrintAttributes newAttributes,
-                         CancellationSignal cancellationSignal,
-                         PrintDocumentAdapter.LayoutResultCallback callback,
-                         Bundle metadata) {
+    public void onLayout(
+            PrintAttributes oldAttributes,
+            PrintAttributes newAttributes,
+            CancellationSignal cancellationSignal,
+            PrintDocumentAdapter.LayoutResultCallback callback,
+            Bundle metadata) {
+
+        Log.d(TAG, "onLayout: Called");
 
         myPdfDocument = new PrintedPdfDocument(context, newAttributes);
 
@@ -112,15 +120,17 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
             PrintDocumentInfo info = builder.build();
             callback.onLayoutFinished(info, true);
         } else {
+            Log.d(TAG, "onLayout: Page count is zero.");
             callback.onLayoutFailed("Page count is zero.");
         }
     }
 
     private void drawPage(PdfDocument.Page page,
                           int pagenumber) {
+        Log.d(TAG, "drawPage: Called with pagenumber: " + pagenumber);
         Canvas canvas = page.getCanvas();
         pagenumber++;
-         // Make sure page numbers start at 1
+        // Make sure page numbers start at 1
 
         int titleBaseLine = 72;
         int leftMargin = 54;
@@ -128,23 +138,23 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(40);
-        if (itemcounter<bitmap.size()){
+        if (itemcounter < bitmap.size()) {
             canvas.drawBitmap(
-                        bitmap.get(itemcounter),
-                        leftMargin,
-                        titleBaseLine,
-                        paint);
-                itemcounter++;
+                    bitmap.get(itemcounter),
+                    leftMargin,
+                    titleBaseLine,
+                    paint);
+            itemcounter++;
         }
-        if (itemcounter<bitmap.size()){
+        if (itemcounter < bitmap.size()) {
             canvas.drawBitmap(
-                        bitmap.get(itemcounter),
-                        leftMargin,
-                        titleBaseLine+500,
-                        paint);
-                itemcounter++;
-                }
+                    bitmap.get(itemcounter),
+                    leftMargin,
+                    titleBaseLine + 500,
+                    paint);
+            itemcounter++;
         }
+    }
 
 
     private boolean pageInRange(PageRange[] pageRanges, int page) {
