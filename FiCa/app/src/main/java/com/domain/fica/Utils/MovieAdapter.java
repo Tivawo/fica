@@ -2,7 +2,6 @@ package com.domain.fica.Utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BlurMaskFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.domain.fica.DetailActivity;
 import com.domain.fica.Domain.Movie;
-import com.domain.fica.MainActivity;
 import com.domain.fica.R;
 import com.squareup.picasso.Picasso;
 

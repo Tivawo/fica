@@ -33,7 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvMovieRating;
     private TextView tvMovieDescription;
     private String age;
-    private FrameLayout Testprint;
+    private FrameLayout printDetail;
     private Bitmap bitmap;
 
     @Override
@@ -66,7 +66,7 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieGenre.setText("Genre: " + Genres.getGenre(movie.getGenres()));
         tvMovieRating.setText("Popularity: " + String.valueOf(movie.getRating()));
         tvMovieDescription.setText("Description: " + movie.getOverview());
-        Testprint = findViewById(R.id.Testprint);
+        printDetail = findViewById(R.id.Testprint);
         Picasso.get().load(movie.getBackdropUrl()).
                 transform(new BlurTransformation(getApplicationContext(), 25, 1)).into(imgMovieDetailPicture);
         imgMovieDetailPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -94,8 +94,8 @@ public class DetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.print) {
             String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
-            bitmap = loadBitmapFromView(Testprint, Testprint.getWidth()+40, Testprint.getHeight()+40);
-            printDocument(Testprint);
+            bitmap = loadBitmapFromView(printDetail, printDetail.getWidth()+40, printDetail.getHeight()+40);
+            printDocument(printDetail);
             Log.d("DetailActivity a",dir);
             return true;
         } else if (id == R.id.share) {
