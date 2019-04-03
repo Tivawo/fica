@@ -4,20 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/Testprint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_detail_movie_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:foreground="#75000000"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
-            android:id="@+id/Testprint"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_detail_movie_picture"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:foreground="#75000000"/>
 
 
             <LinearLayout
@@ -106,11 +108,9 @@
                     android:text="@string/write_a_review"
                     android:layout_gravity="center_horizontal"
                     android:padding="8dp"
-                    android:layout_margin="20dp"
-                    />
+                    android:layout_margin="20dp" />
             </LinearLayout>
-        </FrameLayout>
-
     </ScrollView>
+        </FrameLayout>
 
 </FrameLayout>

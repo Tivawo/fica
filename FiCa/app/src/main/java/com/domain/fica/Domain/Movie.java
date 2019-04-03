@@ -87,6 +87,7 @@ public class Movie implements Serializable {
     public double getVoteAvg() {
         return voteAvg;
     }
+
     public ArrayList<String> getReviews() {
         return reviews;
     }
