@@ -15,8 +15,11 @@ public class Movie implements Serializable {
     private Date releaseDate;
     private double rating;
     private String backdropSmall;
+    private double voteAvg;
 
-    public Movie(int ID, String title, int[] genres, boolean adult, String overview, String posterUrl, String backdropUrl, String language, Date releaseDate, double rating, String backdropSmall) {
+    public Movie(int ID, String title, int[] genres, boolean adult, String overview,
+                 String posterUrl, String backdropUrl, String language, Date releaseDate,
+                 double rating, String backdropSmall, double voteAvg) {
         this.ID = ID;
         this.title = title;
         this.genres = genres;
@@ -28,89 +31,53 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.backdropSmall = backdropSmall;
+        this.voteAvg=voteAvg;
     }
 
     public int getID() {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public int[] getGenres() {
         return genres;
     }
 
-    public void setGenres(int[] genres) {
-        this.genres = genres;
-    }
-
     public boolean isAdult() {
-        return adult;
-    }
 
-    public void setAdult(boolean adult) {
-        this.adult = adult;
+        return adult;
     }
 
     public String getOverview() {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
     public String getPosterUrl() {
         return posterUrl;
-    }
-
-    public void setPosterUrl(String posterUrl) {
-        this.posterUrl = posterUrl;
     }
 
     public String getBackdropUrl() {
         return backdropUrl;
     }
 
-    public void setBackdropUrl(String backdropUrl) {
-        this.backdropUrl = backdropUrl;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public Date getReleaseDate() {
         return releaseDate;
     }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public int getReleaseYear(){
+        return releaseDate.getYear()+1900;
     }
 
     public double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public String getBackdropSmall() {
         return backdropSmall;
+    }
+    public double getVoteAvg() {
+        return voteAvg;
     }
 }

@@ -91,15 +91,17 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 String title = jsonMovie.getString(Constants.TITLE);
                 boolean adult = jsonMovie.getBoolean(Constants.ADULT);
                 String overview = jsonMovie.getString(Constants.OVERVIEW);
-                String posterUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.POSTERURL);
-                String backdropUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.BACKDROPURL);
+                String posterUrl = Constants.URL_IMG_L + jsonMovie.getString(Constants.POSTERURL);
+                String backdropUrl = Constants.URL_IMG_L + jsonMovie.getString(Constants.BACKDROPURL);
                 String language = jsonMovie.getString(Constants.LANGUAGE);
                 Double rating = jsonMovie.getDouble(Constants.RATING);
-                String backdropSmall="http://image.tmdb.org/t/p/w300/" + jsonMovie.getString(Constants.BACKDROPURL);
+                String backdropSmall = Constants.URL_IMG_S + jsonMovie.getString(Constants.BACKDROPURL);
+                Double voteAvg = jsonMovie.getDouble("vote_average");
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date releasedate;
-                if (!jsonMovie.getString(Constants.RELEASEDATE).isEmpty() && jsonMovie.getString(Constants.RELEASEDATE) != null) {
+                if (!jsonMovie.getString(Constants.RELEASEDATE).isEmpty()
+                        && jsonMovie.getString(Constants.RELEASEDATE) != null) {
                     releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
                 } else {
                     Log.d(TAG, "onPostExecute: date is null, setting to default...");
@@ -113,31 +115,34 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 }
 
                 //Correct nulls
-                if (overview=="") {
-                    overview = "No description available";
+                if (overview == "") {
+                    overview = "No description available.";
                 }
                 if (backdropUrl.contains("null")) {
                     backdropUrl = posterUrl;
-                    backdropSmall=posterUrl;
+                    backdropSmall = posterUrl;
                 }
                 if (backdropUrl.contains("null")) {
-                    backdropUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
-                    backdropSmall=backdropUrl;
+                    backdropUrl = Constants.URLBLK;
+                    backdropSmall = backdropUrl;
                 }
                 if (posterUrl.contains("null")) {
-                    posterUrl = "https://cdn4.iconfinder.com/data/icons/symbol-blue-set-1/100/Untitled-2-63-512.png";
+                    posterUrl = Constants.URLNA;
                 }
-                if (genres.length == 0 || genres == null) {
+                if (genres.length == 0) {
                     int[] genreNull = {1};
                     genres = genreNull;
                 }
 
                 //Add to movie & arraylist
-                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate, rating, backdropSmall);
+                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl,
+                        language, releasedate, rating, backdropSmall, voteAvg);
                 movieList.add(movie);
             }
             Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");
             listener.onMovieInfoAvailable(movieList);
+            Log.d(TAG, "onPostExecute: Movie list sent to MainActivity with: " +
+                    movieList.size() + " results.");
 
             //Catch errors
         } catch (JSONException e) {
@@ -158,32 +163,16 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         return url;
     }
 
-    public int getPage() {
-        return page;
-    }
-
     public void setPage(int page) {
         this.page = page;
-    }
-
-    public String getSort() {
-        return sort;
     }
 
     public void setSort(String sort) {
         this.sort = sort;
     }
 
-    public String getAdult() {
-        return adult;
-    }
-
     public void setAdult(String adult) {
         this.adult = adult;
-    }
-
-    public String getGenres() {
-        return genres;
     }
 
     public void setGenres(String genres) {

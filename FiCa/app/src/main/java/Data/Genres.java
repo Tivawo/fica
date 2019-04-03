@@ -68,6 +68,8 @@ public class Genres {
                 case 37:
                     genreList.add("Western");
                     break;
+                case 1:
+                    genreList.add("Not available");
 
             }
 

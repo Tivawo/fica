@@ -44,13 +44,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         Movie currentMovie = movieList.get(i);
-        String movieText = currentMovie.getTitle() + "\n" + currentMovie.getReleaseDate()
-                + "\n" + currentMovie.isAdult();
+        String age;
+
+        if (currentMovie.isAdult()) {
+            age = "Adult";
+        } else {
+            age = "Child/teen";
+        }
+
+        String movieText = currentMovie.getTitle() + "\n" + currentMovie.getReleaseYear()
+                + "\n" + age + "\n\n\nRated " + currentMovie.getVoteAvg() + "/10\n" + "Popularity: "
+                + currentMovie.getRating();
 
         movieViewHolder.tvMovieText.setText(movieText);
         Picasso.get().load(currentMovie.getPosterUrl()).fit().
                 centerInside().into(movieViewHolder.ivMovieImage);
-        Picasso.get().load(currentMovie.getBackdropSmall()).fit().transform(new BlurTransformation(context, 5, 1)).into(movieViewHolder.ivMovieBack);
+        Picasso.get().load(currentMovie.getBackdropSmall()).fit().
+                transform(new BlurTransformation(context, 5, 1))
+                .into(movieViewHolder.ivMovieBack);
     }
 
 
@@ -69,7 +80,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             super(itemView);
 
             ivMovieImage = itemView.findViewById(R.id.iv_movie_item);
-            ivMovieBack=itemView.findViewById(R.id.iv_movie_backdrop);
+            ivMovieBack = itemView.findViewById(R.id.iv_movie_backdrop);
             tvMovieText = itemView.findViewById(R.id.tv_movie_text);
 
             itemView.setOnClickListener(this);
@@ -77,7 +88,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @Override
         public void onClick(View v) {
-            Log.d("ADAPATER","Klik op item" + getAdapterPosition());
+            Log.d("ADAPATER", "Klik op item" + getAdapterPosition());
             Toast.makeText(v.getContext(), "Klik op item: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(v.getContext(), DetailActivity.class);
