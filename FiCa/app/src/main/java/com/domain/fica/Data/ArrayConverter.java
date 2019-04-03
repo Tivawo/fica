@@ -3,7 +3,9 @@ package com.domain.fica.Data;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import androidx.room.TypeConverter;
 
@@ -23,14 +25,15 @@ public class ArrayConverter {
     @TypeConverter
     public int[] JSONArrayToIntArray(String values) {
         try {
-            JSONArray jsonArray = new JSONArray(values);
-            int[] intArray = new int[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                intArray[i] = Integer.parseInt(jsonArray.getString(i));
+            String[] integerStrings = values.split(",");
+            int[] integers = new int[integerStrings.length];
+            for (int i = 0; i < integers.length; i++){
+                integerStrings[i] = integerStrings[i].replace("[", "");
+                integerStrings[i] = integerStrings[i].replace("]", "");
+                integers[i] = Integer.parseInt(integerStrings[i]);
             }
-            return intArray;
-        } catch (JSONException e) {
-            e.printStackTrace();
+            return integers;
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

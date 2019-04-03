@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import Data.Genres;
+import com.domain.fica.Data.Genres;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
@@ -96,21 +96,21 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    @Override
-    protected void onResume() {
-        Log.d(TAG, "onResume: Called");
-        super.onResume();
-        if (movie.getReviews().size() == 0) {
-            tvMovieReviews.setText("No reviews available yet");
-        } else {
-            String reviews = "";
-
-            for (int i = 1; i < movie.getReviews().size() + 1; i++) {
-                reviews += "Review #" + i + "\n" + movie.getReviews().get(i - 1) + "\n\n";
-            }
-            tvMovieReviews.setText(reviews);
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        Log.d(TAG, "onResume: Called");
+//        super.onResume();
+//        if (movie.getReviews().size() == 0) {
+//            tvMovieReviews.setText("No reviews available yet");
+//        } else {
+//            String reviews = "";
+//
+//            for (int i = 1; i < movie.getReviews().size() + 1; i++) {
+//                reviews += "Review #" + i + "\n" + movie.getReviews().get(i - 1) + "\n\n";
+//            }
+//            tvMovieReviews.setText(reviews);
+//        }
+//    }
 
     private void toolbar() {
         Log.d(TAG, "toolbar: Called.");

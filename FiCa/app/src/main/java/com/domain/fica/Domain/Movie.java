@@ -4,7 +4,6 @@ import com.domain.fica.Data.ArrayConverter;
 import com.domain.fica.Data.DateConverter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.room.Entity;
@@ -30,7 +29,6 @@ public class Movie implements Serializable {
     private double rating;
     private String backdropSmall;
     private double voteAvg;
-    private ArrayList<String> reviews = new ArrayList<>();
 
     public Movie(int movieId, String title, int[] genres, boolean adult, String overview,
                  String posterUrl, String backdropUrl, String language, Date releaseDate,
@@ -50,9 +48,6 @@ public class Movie implements Serializable {
 
     }
 
-    public void addReview(String review) {
-        reviews.add(review);
-    }
 
     public int getDbId() {
         return dbId;
@@ -107,15 +102,11 @@ public class Movie implements Serializable {
         return voteAvg;
     }
 
-    public ArrayList<String> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(ArrayList<String> reviews) {
-        this.reviews = reviews;
-    }
-
     public void setDbId(int dbId) {
         this.dbId = dbId;
+    }
+
+    public String getLanguage() {
+        return language;
     }
 }

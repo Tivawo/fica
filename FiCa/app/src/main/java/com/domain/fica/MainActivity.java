@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener,
         View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener, SearchView.OnCloseListener {
     //Attributes
+
     public static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;

@@ -1,4 +1,4 @@
-package Data;
+package com.domain.fica.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;

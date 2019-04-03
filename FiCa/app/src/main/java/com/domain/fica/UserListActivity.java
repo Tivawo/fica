@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class UserListActivity extends AppCompatActivity implements UserListTask.UserListTaskListener{
 
+    private final String TAG = "UserListActivity";
     private RecyclerView recyclerView;
     private MovieAdapter MovieAdapter;
     private DBRepository dbRepository;

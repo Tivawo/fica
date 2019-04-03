@@ -65,18 +65,18 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, "onClick: Called");
-        movie.addReview(reviewEt.getText().toString());
-        System.out.println(movie.getReviews().size());
-        reviewEt.setText("");
-
-        Log.d("ReviewActivity", "onClick called");
-        Intent intent = new Intent(v.getContext(), DetailActivity.class);
-
-        intent.putExtra("MOVIE", movie);
-
-        v.getContext().startActivity(intent);
-        Log.d("ReviewActivity", "intent created and started activity");
-        finish();
+//        Log.d(TAG, "onClick: Called");
+//        movie.addReview(reviewEt.getText().toString());
+//        System.out.println(movie.getReviews().size());
+//        reviewEt.setText("");
+//
+//        Log.d("ReviewActivity", "onClick called");
+//        Intent intent = new Intent(v.getContext(), DetailActivity.class);
+//
+//        intent.putExtra("MOVIE", movie);
+//
+//        v.getContext().startActivity(intent);
+//        Log.d("ReviewActivity", "intent created and started activity");
+//        finish();
     }
 }
