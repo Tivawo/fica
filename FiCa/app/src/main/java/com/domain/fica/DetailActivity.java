@@ -7,16 +7,12 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,14 +21,14 @@ import com.domain.fica.Domain.Movie;
 import com.domain.fica.Utils.DetailPrintDocumentAdapter;
 import com.squareup.picasso.Picasso;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-public class DetailActivity extends AppCompatActivity {
 
 import Data.Genres;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
+
     private ImageView imgMovieDetailPicture;
     private TextView tvMovieTitle;
     private TextView tvMovieReleaseDate;
@@ -46,7 +42,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private FrameLayout printDetail;
     private Bitmap bitmap;
     private Button reviewBtn;
-    private Movie movie;
     private TextView tvMovieReviews;
 
     @Override

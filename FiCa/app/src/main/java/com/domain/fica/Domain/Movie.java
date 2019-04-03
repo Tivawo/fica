@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -17,7 +16,9 @@ import androidx.room.TypeConverters;
 public class Movie implements Serializable {
 
     @PrimaryKey
-    private int id;
+    private int dbId;
+
+    private int movieId;
     private String title;
     private int[] genres;
     private boolean adult;
@@ -31,10 +32,10 @@ public class Movie implements Serializable {
     private double voteAvg;
     private ArrayList<String> reviews = new ArrayList<>();
 
-    public Movie(int ID, String title, int[] genres, boolean adult, String overview,
+    public Movie(int movieId, String title, int[] genres, boolean adult, String overview,
                  String posterUrl, String backdropUrl, String language, Date releaseDate,
                  double rating, String backdropSmall, double voteAvg) {
-        this.ID = ID;
+        this.movieId = movieId;
         this.title = title;
         this.genres = genres;
         this.adult = adult;
@@ -53,8 +54,12 @@ public class Movie implements Serializable {
         reviews.add(review);
     }
 
-    public int getID() {
-        return ID;
+    public int getDbId() {
+        return dbId;
+    }
+
+    public int getMovieId() {
+        return movieId;
     }
 
     public String getTitle() {
@@ -106,5 +111,9 @@ public class Movie implements Serializable {
 
     public void setReviews(ArrayList<String> reviews) {
         this.reviews = reviews;
+    }
+
+    public void setDbId(int dbId) {
+        this.dbId = dbId;
     }
 }

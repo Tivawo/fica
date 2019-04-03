@@ -14,7 +14,6 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.pdf.PrintedPdfDocument;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.FileOutputStream;

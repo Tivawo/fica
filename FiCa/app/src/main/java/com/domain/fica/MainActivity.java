@@ -10,15 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.print.PrintJob;
 import android.print.PrintManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,8 +26,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import Data.Constants;
+import com.domain.fica.Data.Constants;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -98,9 +90,9 @@ public class MainActivity extends AppCompatActivity
         movieAdapter = new MovieAdapter(this, movieList, R.layout.movie_item);
 
         // Recyclerview instellingen
-        recyclerView = findViewById(R.id.rv_recycler);
+        recyclerView = findViewById(R.id.rv_main);
         layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(movieAdapter);

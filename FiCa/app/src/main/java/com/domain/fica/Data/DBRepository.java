@@ -4,10 +4,6 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import com.domain.fica.Domain.Movie;
-import com.domain.fica.Domain.Movie;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DBRepository {
 

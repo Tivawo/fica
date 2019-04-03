@@ -2,9 +2,6 @@ package com.domain.fica;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +13,8 @@ import android.widget.TextView;
 import com.domain.fica.Domain.Movie;
 import com.squareup.picasso.Picasso;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class ReviewActivity extends AppCompatActivity implements View.OnClickListener {

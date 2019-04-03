@@ -8,7 +8,6 @@ import com.domain.fica.Data.MovieDAO;
 import com.domain.fica.Domain.Movie;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class UserListTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
 
