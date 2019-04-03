@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import com.squareup.picasso.Picasso;
 import Data.Genres;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imgMovieDetailPicture;
     private TextView tvMovieTitle;
     private TextView tvMovieReleaseDate;
@@ -35,6 +37,9 @@ public class DetailActivity extends AppCompatActivity {
     private String age;
     private FrameLayout printDetail;
     private Bitmap bitmap;
+    private Button reviewBtn;
+    private Movie movie;
+    private TextView tvMovieReviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +53,20 @@ public class DetailActivity extends AppCompatActivity {
         tvMovieGenre = findViewById(R.id.tv_movie_genre);
         tvMovieRating = findViewById(R.id.tv_movie_rating);
         tvMovieDescription = findViewById(R.id.tv_movie_description);
+        reviewBtn = findViewById(R.id.write_review_btn);
+        tvMovieReviews = findViewById(R.id.tv_movie_reviews);
 
         Bundle extras = getIntent().getExtras();
 
-        Movie movie = (Movie)extras.getSerializable("MOVIE");
+        movie = (Movie)extras.getSerializable("MOVIE");
 
         if(movie.isAdult()){
             age = "Adult";
         } else {
-            age = "Child/teen";
+            age = "Child/Teen";
         }
+
+        onResume();
 
         Picasso.get().load(movie.getBackdropUrl()).into(imgMovieDetailPicture);
         tvMovieTitle.setText("Title: " + movie.getTitle());
@@ -71,6 +80,23 @@ public class DetailActivity extends AppCompatActivity {
                 transform(new BlurTransformation(getApplicationContext(), 25, 1)).into(imgMovieDetailPicture);
         imgMovieDetailPicture.setScaleType(ImageView.ScaleType.CENTER_CROP);
         toolbar();
+        reviewBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (movie.getReviews().size() == 0) {
+            tvMovieReviews.setText("No reviews available yet");
+        } else {
+            String reviews = "";
+
+            for (int i = 1; i < movie.getReviews().size() + 1; i++) {
+                reviews += "Review #" + i + "\n" + movie.getReviews().get(i -1) +  "\n\n";
+            }
+            tvMovieReviews.setText(reviews);
+        }
     }
 
     private void toolbar() {
@@ -101,6 +127,7 @@ public class DetailActivity extends AppCompatActivity {
         } else if (id == R.id.share) {
 
         } else {
+
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -136,5 +163,17 @@ public class DetailActivity extends AppCompatActivity {
 
         printManager.print(jobName, new DetailPrintDocumentAdapter(this, bitmap),
                 null);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d("DetailActivity", "onClick called");
+        Intent intent = new Intent(v.getContext(), ReviewActivity.class);
+
+        intent.putExtra("MOVIE", movie);
+
+        v.getContext().startActivity(intent);
+        Log.d("DetailActivity", "intent created and started activity");
+        finish();
     }
 }

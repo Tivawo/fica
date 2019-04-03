@@ -1,6 +1,7 @@
 package com.domain.fica.Domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Movie implements Serializable {
@@ -16,6 +17,7 @@ public class Movie implements Serializable {
     private double rating;
     private String backdropSmall;
     private double voteAvg;
+    private ArrayList<String> reviews = new ArrayList<>();
 
     public Movie(int ID, String title, int[] genres, boolean adult, String overview,
                  String posterUrl, String backdropUrl, String language, Date releaseDate,
@@ -32,6 +34,11 @@ public class Movie implements Serializable {
         this.rating = rating;
         this.backdropSmall = backdropSmall;
         this.voteAvg=voteAvg;
+
+    }
+
+    public void addReview(String review) {
+        reviews.add(review);
     }
 
     public int getID() {
@@ -79,5 +86,12 @@ public class Movie implements Serializable {
     }
     public double getVoteAvg() {
         return voteAvg;
+    }
+    public ArrayList<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<String> reviews) {
+        this.reviews = reviews;
     }
 }
