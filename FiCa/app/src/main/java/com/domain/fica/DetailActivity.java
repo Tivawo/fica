@@ -94,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.print) {
             String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
-            bitmap = loadBitmapFromView(Testprint, Testprint.getWidth(), Testprint.getHeight());
+            bitmap = loadBitmapFromView(Testprint, Testprint.getWidth()+40, Testprint.getHeight()+40);
             printDocument(Testprint);
             Log.d("DetailActivity a",dir);
             return true;

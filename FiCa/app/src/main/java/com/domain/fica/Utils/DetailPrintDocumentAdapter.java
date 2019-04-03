@@ -80,9 +80,9 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
         myPdfDocument = new PrintedPdfDocument(context, newAttributes);
 
         pageHeight =
-                newAttributes.getMediaSize().getHeightMils() / 750 * 72;
+                newAttributes.getMediaSize().getHeightMils() / 750 * 80;
         pageWidth =
-                newAttributes.getMediaSize().getWidthMils() / 750 * 72;
+                newAttributes.getMediaSize().getWidthMils() / 750 * 80;
 
         if (cancellationSignal.isCanceled()) {
             callback.onLayoutCancelled();
