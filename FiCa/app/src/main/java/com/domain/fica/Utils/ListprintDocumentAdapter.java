@@ -131,7 +131,7 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
         Canvas canvas = page.getCanvas();
         pagenumber++;
         // Make sure page numbers start at 1
-
+        canvas.setDensity(200);
         int titleBaseLine = 72;
         int leftMargin = 54;
 

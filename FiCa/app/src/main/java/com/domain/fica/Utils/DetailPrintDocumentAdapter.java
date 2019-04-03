@@ -127,7 +127,8 @@ public class DetailPrintDocumentAdapter extends PrintDocumentAdapter {
         paint.setColor(Color.BLACK);
         paint.setTextSize(40);
 
-        canvas.drawBitmap(
+        canvas.setDensity(200);
+                canvas.drawBitmap(
                 bitmap,
                 leftMargin,
                 titleBaseLine,
