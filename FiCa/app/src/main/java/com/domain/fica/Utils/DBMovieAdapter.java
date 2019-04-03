@@ -64,6 +64,10 @@ public class DBMovieAdapter extends RecyclerView.Adapter<DBMovieAdapter.DBMovieV
         return movieList.size();
     }
 
+    public Movie getMovieAt(int i) {
+        return movieList.get(i);
+    }
+
     public class DBMovieViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivMovieImage;

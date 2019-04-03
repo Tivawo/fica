@@ -2,6 +2,7 @@ package com.domain.fica;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.domain.fica.Data.DBRepository;
 import com.domain.fica.Domain.Movie;
@@ -11,7 +12,9 @@ import com.domain.fica.Utils.UserListTask;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +47,21 @@ public class UserListActivity extends AppCompatActivity implements UserListTask.
         recyclerView.setAdapter(dbMovieAdapter);
 
         userListTask.execute();
+
+        // Swipe to delete functie
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                dbRepository.delete(dbMovieAdapter.getMovieAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(UserListActivity.this,"Movie deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     @Override

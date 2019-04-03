@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserListActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_user_list"/>
         <activity android:name=".DetailActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ReviewActivity"

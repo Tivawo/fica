@@ -7,10 +7,10 @@
         <item
             android:id="@+id/nav_movie_overview"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/MovieOverview" />
+            android:title="@string/title_activity_main" />
         <item
-            android:id="@+id/nav_list_overview"
+            android:id="@+id/nav_user_list_overview"
             android:icon="@drawable/ic_baseline_toc_24px"
-            android:title="@string/ListOverview" />
+            android:title="@string/title_activity_user_list" />
     </group>
 </menu>

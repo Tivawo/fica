@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_movie_overview) {
             // Handle the camera action
-        } else if (id == R.id.nav_list_overview) {
+        } else if (id == R.id.nav_user_list_overview) {
             Intent intent = new Intent(MainActivity.this, UserListActivity.class);
             startActivity(intent);
             Log.d(TAG, "onNavigationItemSelected: Starting listoverview");

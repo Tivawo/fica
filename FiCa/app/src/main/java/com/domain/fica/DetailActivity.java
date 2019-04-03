@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.domain.fica.Data.DBRepository;
 import com.domain.fica.Domain.Movie;
@@ -151,6 +152,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     public void saveMovie(View view) {
         dbRepository.create(movie);
+        Toast.makeText(DetailActivity.this, "Movie saved", Toast.LENGTH_SHORT).show();
     }
 
 
