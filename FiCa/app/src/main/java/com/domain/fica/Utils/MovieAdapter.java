@@ -21,21 +21,24 @@ import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> /*implements Filterable*/ {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-
+    //Attributes
+    private final String TAG="MovieAdapter";
     private Context context;
     private ArrayList<Movie> movieList;
-    private final String TAG="MovieAdapter";
 
+    //Constructor
     public MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.context = context;
         this.movieList = movieList;
     }
 
+    //Methods
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        Log.d(TAG, "onCreateViewHolder: Called");
         View listRow = LayoutInflater.from(context).inflate(R.layout.movie_item,
                 viewGroup, false);
         return new MovieViewHolder(listRow);
@@ -43,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        Log.d(TAG, "onBindViewHolder: Called");
+        Log.d(TAG, "onBindViewHolder: Called with int i="+i);
         Movie currentMovie = movieList.get(i);
         String age;
 
@@ -54,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
         String movieText = currentMovie.getTitle() + "\n" + currentMovie.getReleaseYear()
-                + "\n" + age + "\n\n\nRated " + currentMovie.getVoteAvg() + "/10\n" + "Popularity: "
+                + "\n" + age + "\n\nRated " + currentMovie.getVoteAvg() + "/10\n" + "Popularity: "
                 + currentMovie.getRating();
 
         movieViewHolder.tvMovieText.setText(movieText);
@@ -70,41 +73,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public int getItemCount() {
         return movieList.size();
     }
-
-    /*@Override
-    public Filter getFilter() {
-        return movieFilter;
-    }
-
-    private Filter movieFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Movie> filteredMovieList = new ArrayList<>();
-
-            if(constraint == null || constraint.length() == 0){
-                filteredMovieList.addAll(movieList);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for(Movie movieItem : movieList){
-                    if(movieItem.getTitle().toLowerCase().contains(filterPattern)){
-                        filteredMovieList.add(movieItem);
-                    }
-                }
-            }
-            FilterResults results = new FilterResults();
-            results.values = filteredMovieList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            movieList.clear();
-            movieList.addAll((List)results.values);
-            notifyDataSetChanged();
-        }
-    };*/
 
     public void update(ArrayList<Movie> results) {
         Log.d(TAG, "update: Called");

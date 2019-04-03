@@ -37,21 +37,26 @@ import java.util.ArrayList;
 import Data.Constants;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener, SearchView.OnCloseListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener,
+        View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener, SearchView.OnCloseListener {
+    //Attributes
+    public static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
     private MovieTask movieTask;
     private ArrayList<Movie> movieList;
-    public static final String TAG = "MainActivity";
+    LinearLayoutManager layoutManager;
+
+    //Sorting & Functionality Attributes
     private String sort = Constants.SORT_RATING_DESC;
     private static int first;
-    LinearLayoutManager layoutManager;
     private int page=2;
     private Bitmap bitmap;
     private FrameLayout listprint;
     private WebView mWebView;
 
+
+    //Methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: Called");
@@ -81,7 +86,6 @@ public class MainActivity extends AppCompatActivity
         movieList = new ArrayList<Movie>();
 
         // Adapter voor de recyclerview
-
         movieAdapter = new MovieAdapter(this, movieList);
 
         // Recyclerview instellingen
@@ -98,9 +102,10 @@ public class MainActivity extends AppCompatActivity
         movieTask.execute();
     }
 
+    //Gets An arraylist with movies from the Asynch task to work with.
     @Override
     public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
-        Log.d(TAG, "onMovieInfoAvailable: Called");
+        Log.d(TAG, "onMovieInfoAvailable: Called, notifying adapter.");
         this.movieList.addAll(movieList);
         this.movieAdapter.notifyDataSetChanged();
     }
@@ -108,6 +113,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "onBackPressed: Called");
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -152,6 +158,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    //Collapse please. For executing tasks based on dropdown menu selection.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here.
@@ -263,8 +270,7 @@ public class MainActivity extends AppCompatActivity
                 reload();
                 break;
             case R.id.print:
-//                recyclerView.getRecycledViewPool();
-                listprint = (FrameLayout) findViewById(R.id.listprint);
+                listprint = findViewById(R.id.listprint);
                 String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
                 generatePDF(recyclerView);
                 Log.d(TAG, dir);
@@ -272,7 +278,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    //For making PDF
     public void generatePDF(RecyclerView view) {
+        Log.d(TAG, "generatePDF: Called");
 
         RecyclerView.Adapter adapter = view.getAdapter();
         Bitmap bigBitmap = null;
@@ -330,14 +338,17 @@ public class MainActivity extends AppCompatActivity
         movieTask.setOnMovieInfoAvailableListener(this);
         movieList.clear();
         movieTask.execute();
+        first=layoutManager.findFirstVisibleItemPosition();
     }
 
+    //Reload the movielist with set values and page 1.
     public void reload() {
         executeSort(this.sort);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+    //For selecting Movie overview or List overview. Hamburger menu.
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -347,6 +358,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_list_overview) {
             Intent intent = new Intent(MainActivity.this, ListOverviewActivity.class);
             startActivity(intent);
+            Log.d(TAG, "onNavigationItemSelected: Starting listoverview");
 
         }
 
@@ -357,6 +369,7 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
+    //When a scroll in the recyclerview is detected.
     public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
         int currentFirst=layoutManager.findFirstVisibleItemPosition();
 
@@ -375,6 +388,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    //For pairing the search button with list generation.
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId()==R.id.action_search){
             movieList.clear();
@@ -392,6 +406,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    //When search bar is closed, reload.
     public boolean onClose() {
         Menu closeItemMenu = (Menu) getMenuInflater();
         closeItemMenu.getItem(R.id.action_search);
