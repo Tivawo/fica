@@ -26,6 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private Context context;
     private ArrayList<Movie> movieList;
+    private final String TAG="MovieAdapter";
 
     public MovieAdapter(Context context, ArrayList<Movie> movieList) {
         this.context = context;
@@ -42,6 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+        Log.d(TAG, "onBindViewHolder: Called");
         Movie currentMovie = movieList.get(i);
         String age;
 
@@ -105,7 +107,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     };*/
 
     public void update(ArrayList<Movie> results) {
-        movieList = new ArrayList<>();
+        Log.d(TAG, "update: Called");
+        movieList.clear();
         movieList.addAll(results);
         notifyDataSetChanged();
     }
@@ -128,7 +131,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         @Override
         public void onClick(View v) {
-            Log.d("ADAPATER", "Klik op item" + getAdapterPosition());
+            Log.d(TAG, "Klik op item" + getAdapterPosition());
             Toast.makeText(v.getContext(), "Klik op item: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(v.getContext(), DetailActivity.class);

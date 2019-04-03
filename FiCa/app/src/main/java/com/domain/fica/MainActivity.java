@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import Data.Constants;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -120,8 +120,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchItem.setOnMenuItemClickListener(this);
 
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity
                     if(m.getTitle().toLowerCase().contains(s)){
                         results.add(m);
                     }
+
                 }
                 movieAdapter.update(results);
 
@@ -369,5 +371,22 @@ public class MainActivity extends AppCompatActivity
             movieTask.setOnMovieInfoAvailableListener(this);
             movieTask.execute();
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId()==R.id.action_search){
+            movieList.clear();
+            for (int i=1; i<10; i++){
+                MovieTask movieTask = new MovieTask();
+                movieTask.setPage(i);
+                movieTask.setSort(this.sort);
+                movieTask.setAdult(Constants.AdultBool);
+                movieTask.setGenres(Constants.genreId);
+                movieTask.setOnMovieInfoAvailableListener(this);
+                movieTask.execute();
+            }
+        }
+        return false;
     }
 }
