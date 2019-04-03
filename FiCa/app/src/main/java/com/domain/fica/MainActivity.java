@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import Data.Constants;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Movie> movieList;
     public static final String TAG = "MainActivity";
     private String sort = Constants.SORT_RATING_DESC;
+    private static int first;
+    LinearLayoutManager layoutManager;
+    private int page=2;
     private Bitmap bitmap;
     private FrameLayout listprint;
     private WebView mWebView;
@@ -83,13 +86,23 @@ public class MainActivity extends AppCompatActivity
 
         // Recyclerview instellingen
         recyclerView = findViewById(R.id.rv_recycler);
-        LinearLayoutManager layoutManager
+        layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(movieAdapter);
+        first= layoutManager.findFirstVisibleItemPosition();
+        recyclerView.setOnScrollChangeListener(this);
+
         // Voer asynctask uit, maak kopie voor filters
         movieTask.execute();
+    }
+
+    @Override
+    public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
+        Log.d(TAG, "onMovieInfoAvailable: Called");
+        this.movieList.addAll(movieList);
+        this.movieAdapter.notifyDataSetChanged();
     }
 
 
@@ -138,11 +151,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here.
         int id = item.getItemId();
-
         Log.d(TAG, "onOptionsItemSelected: Called");
         switch (id) {
             case R.id.Sort_Option_A_To_Z:
@@ -315,6 +325,7 @@ public class MainActivity extends AppCompatActivity
         movieTask.setSort(sort);
         movieTask.setGenres(Constants.genreId);
         movieTask.setOnMovieInfoAvailableListener(this);
+        movieList.clear();
         movieTask.execute();
     }
 
@@ -341,11 +352,22 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @Override
-    public void onMovieInfoAvailable(ArrayList<Movie> movieList) {
-        Log.d(TAG, "onMovieInfoAvailable: Called");
-        this.movieList.clear();
-        this.movieList.addAll(movieList);
-        this.movieAdapter.notifyDataSetChanged();
+    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        int currentFirst=layoutManager.findFirstVisibleItemPosition();
+
+        if (currentFirst>first+10){
+            MovieTask movieTask = new MovieTask();
+            movieTask.setPage(page);
+            movieTask.setSort(this.sort);
+            movieTask.setAdult(Constants.AdultBool);
+            movieTask.setGenres(Constants.genreId);
+            Log.d(TAG, "onScrollChange: Adding page: "+page);
+            page++;
+            first=currentFirst+10;
+            movieTask.setOnMovieInfoAvailableListener(this);
+            movieTask.execute();
+        }
     }
 }

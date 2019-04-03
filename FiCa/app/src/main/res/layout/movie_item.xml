@@ -11,7 +11,8 @@
         android:id="@+id/iv_movie_backdrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="#75000000"/>
+        android:foreground="#75000000"
+        android:background="#000"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/relativeLayout"
@@ -28,10 +29,9 @@
 
         <TextView
             android:id="@+id/tv_movie_text"
-            android:layout_width="167dp"
-            android:layout_height="168dp"
+            android:layout_width="196dp"
+            android:layout_height="171dp"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
             android:shadowColor="#000"
             android:shadowRadius="10"
             android:textColor="#fff"
