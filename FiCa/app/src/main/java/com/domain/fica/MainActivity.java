@@ -2,7 +2,16 @@ package com.domain.fica;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintJob;
+import android.print.PrintManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,15 +21,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.domain.fica.Domain.Movie;
+import com.domain.fica.Utils.DetailPrintDocumentAdapter;
+import com.domain.fica.Utils.ListprintDocumentAdapter;
 import com.domain.fica.Utils.MovieAdapter;
 import com.domain.fica.Utils.MovieTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import Data.Constants;
@@ -37,6 +53,9 @@ public class MainActivity extends AppCompatActivity
     private static int first;
     LinearLayoutManager layoutManager;
     private int page=2;
+    private Bitmap bitmap;
+    private FrameLayout listprint;
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,9 +238,63 @@ public class MainActivity extends AppCompatActivity
                 Constants.genreId = "37";
                 reload();
                 break;
-
+            case R.id.print:
+//                recyclerView.getRecycledViewPool();
+                listprint = (FrameLayout) findViewById(R.id.listprint);
+                String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
+                generatePDF(recyclerView);
+                Log.d(TAG, dir);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void generatePDF(RecyclerView view) {
+
+        RecyclerView.Adapter adapter = view.getAdapter();
+        Bitmap bigBitmap = null;
+        if (adapter != null) {
+            int size = adapter.getItemCount();
+            int height = 0;
+            Paint paint = new Paint();
+            int iHeight = 0;
+            final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+            // Use 1/8th of the available memory for this memory cache.
+            final int cacheSize = maxMemory / 8;
+            ArrayList<Bitmap> bitmapCache = new ArrayList<Bitmap>();
+            for (int i = 0; i < size; i++) {
+                RecyclerView.ViewHolder holder = adapter.createViewHolder(view, adapter.getItemViewType(i));
+                adapter.onBindViewHolder(holder, i);
+                
+                holder.itemView.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY),
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                holder.itemView.layout(0, 0, holder.itemView.getMeasuredWidth(), holder.itemView.getMeasuredHeight());
+                holder.itemView.setDrawingCacheEnabled(true);
+                holder.itemView.buildDrawingCache();
+                Bitmap drawingCache = holder.itemView.getDrawingCache();
+                if (drawingCache != null) {
+
+                    bitmapCache.add(drawingCache);
+                }
+
+                height += holder.itemView.getMeasuredHeight();
+            }
+
+            bigBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), height, Bitmap.Config.ARGB_8888);
+            Canvas bigCanvas = new Canvas(bigBitmap);
+            bigCanvas.drawColor(Color.WHITE);
+
+
+            PrintManager printManager = (PrintManager) this
+                    .getSystemService(Context.PRINT_SERVICE);
+
+            String jobName = this.getString(R.string.app_name) +
+                    " Document";
+
+            ListprintDocumentAdapter printAdapter =new ListprintDocumentAdapter(MainActivity.this, bitmapCache);
+            PrintJob print = printManager.print(jobName, printAdapter,
+                    null);
+        }
     }
 
     public void executeSort(String sort) {
