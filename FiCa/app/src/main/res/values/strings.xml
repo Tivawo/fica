@@ -47,4 +47,7 @@
     <string name="genre_war">War</string>
     <string name="genre_western">Western</string>
     <string name="search">Search</string>
+    <string name="write_a_review">Write a Review!</string>
+    <string name="review_text">Write your review and submit it!</string>
+    <string name="submit">Submit</string>
 </resources>
