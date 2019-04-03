@@ -4,85 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/Testprint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:id="@+id/img_detail_movie_picture"/>
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_movie_title"
+        <ImageView
+            android:id="@+id/img_detail_movie_picture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="20"
-            android:textColor="@color/white"
-            android:textSize="28sp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_movie_release_date"
-            android:textColor="@color/white"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:textSize="18sp"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_movie_age"
-            android:textColor="@color/white"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:textSize="18sp"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_movie_genre"
-            android:textColor="@color/white"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:textSize="18sp"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_movie_rating"
-            android:textColor="@color/white"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:textSize="18sp"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:shadowColor="#000"
-            android:shadowDx="-1"
-            android:shadowDy="-1"
-            android:shadowRadius="1"
-            android:id="@+id/tv_movie_description"
-            android:textSize="18sp"
-            android:layout_margin="5dp"/>
-
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:foreground="#75000000"/>
 
     <Button
         android:id="@+id/btn_add_movie"
@@ -91,5 +23,102 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:onClick="saveMovie"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_movie_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_release_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_genre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_movie_reviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:shadowColor="#000"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/write_review_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:textColorHighlight="@color/colorPrimaryDark"
+                    android:text="@string/write_a_review"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:layout_margin="20dp" />
+            </LinearLayout>
+    </ScrollView>
+        </FrameLayout>
 
 </FrameLayout>

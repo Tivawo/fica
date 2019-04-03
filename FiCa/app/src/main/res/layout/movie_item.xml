@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
-    
-    <RelativeLayout
+    android:layout_height="200dp"
+    android:id="@+id/listprint">
+
+    <ImageView
+        android:id="@+id/iv_movie_backdrop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="20dp">
-        
+        android:layout_height="match_parent"
+        android:foreground="#75000000"
+        android:background="#000"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/iv_movie_item"
-            android:layout_width="125dp"
-            android:layout_height="175dp"/>
+            android:layout_width="146dp"
+            android:layout_height="202dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_movie_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/iv_movie_item"
-            android:layout_marginStart="20dp"
-            android:textSize="18sp"/>
-        
-    </RelativeLayout>
+            android:layout_width="196dp"
+            android:layout_height="171dp"
+            android:layout_marginTop="28dp"
+            android:shadowColor="#000"
+            android:shadowRadius="10"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

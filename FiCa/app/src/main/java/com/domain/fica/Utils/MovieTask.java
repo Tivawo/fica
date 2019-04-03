@@ -29,10 +29,10 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     private final String TAG = "MovieTask";
     private MovieTaskListener listener;
     private String jsonResponse;
-    private int page=1;
-    private String sort="";
-    private String adult="";
-    private String genres="";
+    private int page = 1;
+    private String sort = "";
+    private String adult = "true";
+    private String genres = "";
 
     public void setOnMovieInfoAvailableListener(MovieTaskListener listener) {
         this.listener = listener;
@@ -42,7 +42,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
         try {
             //Establish url
-            URL url = new URL(urlBuilder(page, sort, adult, genres));
+            URL url = new URL(urlBuilder(page, sort, Constants.AdultBool, genres));
             URLConnection urlConnection = url.openConnection();
 
             HttpURLConnection httpURLConnection = (HttpURLConnection) urlConnection;
@@ -51,7 +51,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
             httpURLConnection.connect();
 
             //Confirm OK
-            Log.d(TAG, "doInBackground: URL Return code: "+httpURLConnection.getResponseCode());
+            Log.d(TAG, "doInBackground: URL Return code: " + httpURLConnection.getResponseCode());
             if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 InputStream in = httpURLConnection.getInputStream();
                 Scanner scanner = new Scanner(in);
@@ -69,7 +69,7 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
         }
         //Return raw response
         Log.d(TAG, "doInBackground: Returning raw json String");
-        Log.d(TAG, "doInBackground: String: "+jsonResponse);
+        Log.d(TAG, "doInBackground: String: " + jsonResponse);
         return jsonResponse;
     }
 
@@ -92,13 +92,22 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                 String title = jsonMovie.getString(Constants.TITLE);
                 boolean adult = jsonMovie.getBoolean(Constants.ADULT);
                 String overview = jsonMovie.getString(Constants.OVERVIEW);
-                String posterUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.POSTERURL);
-                String backdropUrl = "http://image.tmdb.org/t/p/original/" + jsonMovie.getString(Constants.BACKDROPURL);
+                String posterUrl = Constants.URL_IMG_L + jsonMovie.getString(Constants.POSTERURL);
+                String backdropUrl = Constants.URL_IMG_L + jsonMovie.getString(Constants.BACKDROPURL);
                 String language = jsonMovie.getString(Constants.LANGUAGE);
                 Double rating = jsonMovie.getDouble(Constants.RATING);
+                String backdropSmall = Constants.URL_IMG_S + jsonMovie.getString(Constants.BACKDROPURL);
+                Double voteAvg = jsonMovie.getDouble("vote_average");
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
+                Date releasedate;
+                if (!jsonMovie.getString(Constants.RELEASEDATE).isEmpty()
+                        && jsonMovie.getString(Constants.RELEASEDATE) != null) {
+                    releasedate = dateFormat.parse(jsonMovie.getString(Constants.RELEASEDATE));
+                } else {
+                    Log.d(TAG, "onPostExecute: date is null, setting to default...");
+                    releasedate = dateFormat.parse("2000-01-01");
+                }
 
                 JSONArray genreArray = jsonMovie.getJSONArray(Constants.GENREIDS);
                 int[] genres = new int[genreArray.length()];
@@ -106,12 +115,35 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
                     genres[g] = genreArray.getInt(g);
                 }
 
+                //Correct nulls
+                if (overview == "") {
+                    overview = "No description available.";
+                }
+                if (backdropUrl.contains("null")) {
+                    backdropUrl = posterUrl;
+                    backdropSmall = posterUrl;
+                }
+                if (backdropUrl.contains("null")) {
+                    backdropUrl = Constants.URLBLK;
+                    backdropSmall = backdropUrl;
+                }
+                if (posterUrl.contains("null")) {
+                    posterUrl = Constants.URLNA;
+                }
+                if (genres.length == 0) {
+                    int[] genreNull = {1};
+                    genres = genreNull;
+                }
+
                 //Add to movie & arraylist
-                Movie movie = new Movie(id, title, genres, adult, overview, posterUrl, backdropUrl, language, releasedate, rating);
+                Movie movie = new Movie(ID, title, genres, adult, overview, posterUrl, backdropUrl,
+                        language, releasedate, rating, backdropSmall, voteAvg);
                 movieList.add(movie);
             }
             Log.d(TAG, "onPostExecute: Exiting for loop, setting listener");
             listener.onMovieInfoAvailable(movieList);
+            Log.d(TAG, "onPostExecute: Movie list sent to MainActivity with: " +
+                    movieList.size() + " results.");
 
             //Catch errors
         } catch (JSONException e) {
@@ -127,37 +159,21 @@ public class MovieTask extends AsyncTask<Void, Void, String> {
 
     private String urlBuilder(int page, String sort, String adult, String genres) {
         //BUILD API URL HERE (With constants)
-        String url = Constants.URL1+Constants.PAGE+page+Constants.SORT+sort+Constants.ISADULT+adult+Constants.GENRE+genres+Constants.URL2;
-        Log.d(TAG, "urlBuilder: url:"+url);
+        String url = Constants.URL1 + Constants.PAGE + page + Constants.SORT + sort + Constants.ISADULT + adult + Constants.GENRE + genres + Constants.URL2;
+        Log.d(TAG, "urlBuilder: url:" + url);
         return url;
-    }
-
-    public int getPage() {
-        return page;
     }
 
     public void setPage(int page) {
         this.page = page;
     }
 
-    public String getSort() {
-        return sort;
-    }
-
     public void setSort(String sort) {
         this.sort = sort;
     }
 
-    public String getAdult() {
-        return adult;
-    }
-
     public void setAdult(String adult) {
         this.adult = adult;
-    }
-
-    public String getGenres() {
-        return genres;
     }
 
     public void setGenres(String genres) {
