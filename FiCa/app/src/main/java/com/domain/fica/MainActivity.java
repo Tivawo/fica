@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import Data.Constants;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener, View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener, SearchView.OnCloseListener {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main_menu, menu);
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnCloseListener(this);
         searchItem.setOnMenuItemClickListener(this);
 
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -388,5 +389,14 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        Menu closeItemMenu = (Menu) getMenuInflater();
+        closeItemMenu.getItem(R.id.action_search);
+
+        onMenuItemClick((MenuItem) closeItemMenu);
+        return true;
     }
 }
