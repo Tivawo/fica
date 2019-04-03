@@ -15,6 +15,7 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,10 +34,15 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
     public ListprintDocumentAdapter(Context context, ArrayList<Bitmap> bitmap) {
         this.context = context;
         this.bitmap = bitmap;
-        this.totalpages = bitmap.size()/2;
-        if (bitmap.size()%2>0){
-            totalpages++;
+        bitmap.add(Bitmap.createBitmap(100,100,Bitmap.Config.ARGB_8888));
+        int minsize = bitmap.size()/2;
+        Log.d("bitmap size/2", ""+minsize);
+        if (minsize>=25){
+            totalpages = 25;
+        } else{
+            totalpages = minsize;
         }
+
     }
 
     @Override
@@ -113,7 +119,7 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
     private void drawPage(PdfDocument.Page page,
                           int pagenumber) {
         Canvas canvas = page.getCanvas();
-
+        pagenumber++;
          // Make sure page numbers start at 1
 
         int titleBaseLine = 72;
@@ -122,21 +128,22 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(40);
-                canvas.drawBitmap(
+        if (itemcounter<bitmap.size()){
+            canvas.drawBitmap(
                         bitmap.get(itemcounter),
                         leftMargin,
                         titleBaseLine,
                         paint);
                 itemcounter++;
-                if (bitmap.size()>itemcounter){
-                canvas.drawBitmap(
+        }
+        if (itemcounter<bitmap.size()){
+            canvas.drawBitmap(
                         bitmap.get(itemcounter),
                         leftMargin,
                         titleBaseLine+500,
                         paint);
                 itemcounter++;
                 }
-        pagenumber++;
         }
 
 

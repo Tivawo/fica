@@ -30,6 +30,7 @@
         <activity android:name=".UserListActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".GenreFilter"/>
+        <activity android:name=".ReviewActivity"/>
     </application>
 
 </manifest>
