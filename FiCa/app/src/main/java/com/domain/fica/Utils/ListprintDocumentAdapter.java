@@ -39,6 +39,7 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
         bitmap.add(Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888));
         int minsize = bitmap.size() / 2;
         Log.d("bitmap size/2", "" + minsize);
+
         if (minsize >= 25) {
             totalpages = 25;
         } else {
@@ -152,6 +153,9 @@ public class ListprintDocumentAdapter extends PrintDocumentAdapter {
                     titleBaseLine + 500,
                     paint);
             itemcounter++;
+        }
+        if(itemcounter == bitmap.size()-1){
+            itemcounter = 0;
         }
     }
 
