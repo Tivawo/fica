@@ -14,7 +14,7 @@ import androidx.room.TypeConverters;
 @TypeConverters({DateConverter.class, ArrayConverter.class})
 public class Movie implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int dbId;
 
     private int movieId;

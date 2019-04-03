@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.domain.fica.Data.DBRepository;
 import com.domain.fica.Domain.Movie;
+import com.domain.fica.Utils.DBMovieAdapter;
 import com.domain.fica.Utils.MovieAdapter;
 import com.domain.fica.Utils.UserListTask;
 
@@ -18,7 +19,7 @@ public class UserListActivity extends AppCompatActivity implements UserListTask.
 
     private final String TAG = "UserListActivity";
     private RecyclerView recyclerView;
-    private MovieAdapter MovieAdapter;
+    private DBMovieAdapter dbMovieAdapter;
     private DBRepository dbRepository;
     private ArrayList<Movie> movies;
     private UserListTask userListTask;
@@ -39,8 +40,8 @@ public class UserListActivity extends AppCompatActivity implements UserListTask.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        MovieAdapter = new MovieAdapter(this, movies,  R.layout.custom_movie_item);
-        recyclerView.setAdapter(MovieAdapter);
+        dbMovieAdapter = new DBMovieAdapter(this, movies,  R.layout.movie_item);
+        recyclerView.setAdapter(dbMovieAdapter);
 
         userListTask.execute();
     }
@@ -49,7 +50,7 @@ public class UserListActivity extends AppCompatActivity implements UserListTask.
     public void onListAvailable(ArrayList<Movie> movies) {
         this.movies.clear();
         this.movies.addAll(movies);
-        MovieAdapter.notifyDataSetChanged();
+        dbMovieAdapter.notifyDataSetChanged();
     }
 
 }

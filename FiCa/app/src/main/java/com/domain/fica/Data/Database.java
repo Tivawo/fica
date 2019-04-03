@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 // Declareer welke entiteiten de tabel bevat
-@androidx.room.Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@androidx.room.Database(entities = {Movie.class}, version = 2, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
     // Er is maar 1 instantie v/d database die overal gebruikt wordt

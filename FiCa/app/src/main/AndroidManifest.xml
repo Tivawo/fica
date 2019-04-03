@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserListOverviewActivity" />
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,10 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserListActivity" />
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".ReviewActivity"/>
-        <activity android:name=".GenreFilter"/>
+        <activity android:name=".UserListActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".DetailActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ReviewActivity"
+            android:parentActivityName=".DetailActivity"/>
     </application>
 
 </manifest>
