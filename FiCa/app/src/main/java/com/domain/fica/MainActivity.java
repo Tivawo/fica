@@ -1,5 +1,6 @@
 package com.domain.fica;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Environment;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
 import android.support.design.widget.NavigationView;
@@ -21,18 +20,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.LruCache;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 import com.domain.fica.Domain.Movie;
-import com.domain.fica.Utils.DetailPrintDocumentAdapter;
 import com.domain.fica.Utils.ListprintDocumentAdapter;
 import com.domain.fica.Utils.MovieAdapter;
 import com.domain.fica.Utils.MovieTask;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import Data.Constants;
@@ -121,7 +120,16 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public boolean onQueryTextChange(String s) {
-                movieAdapter.getFilter().filter(s);
+                ArrayList<Movie> results = new ArrayList<>();
+
+                for(Movie m : movieList) {
+                    if(m.getTitle().toLowerCase().contains(s)){
+                        results.add(m);
+                    }
+                }
+                movieAdapter.update(results);
+
+                //movieAdapter.getFilter().filter(s);
                 return false;
             }
         });

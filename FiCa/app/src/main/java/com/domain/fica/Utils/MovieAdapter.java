@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +18,10 @@ import com.domain.fica.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> implements Filterable {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> /*implements Filterable*/ {
 
 
     private Context context;
@@ -61,7 +58,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movieList.size();
     }
 
-    @Override
+    /*@Override
     public Filter getFilter() {
         return movieFilter;
     }
@@ -94,7 +91,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             movieList.addAll((List)results.values);
             notifyDataSetChanged();
         }
-    };
+    };*/
+
+    public void update(ArrayList<Movie> results) {
+        movieList = new ArrayList<>();
+        movieList.addAll(results);
+        notifyDataSetChanged();
+    }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
