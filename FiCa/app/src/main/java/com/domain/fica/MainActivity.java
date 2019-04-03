@@ -40,8 +40,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MovieTask.MovieTaskListener,
         View.OnScrollChangeListener, MenuItem.OnMenuItemClickListener, SearchView.OnCloseListener {
-    //Attributes
 
+    //Attributes
     public static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter;
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
     private Bitmap bitmap;
     private FrameLayout listprint;
     private WebView mWebView;
-
 
     //Methods
     @Override
@@ -416,4 +415,5 @@ public class MainActivity extends AppCompatActivity
         onMenuItemClick((MenuItem) closeItemMenu);
         return true;
     }
+
 }
