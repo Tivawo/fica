@@ -2,7 +2,6 @@
     <string name="app_name">FiCa</string>
     <string name="title_activity_main">Home</string>
     <string name="title_activity_user_list">My List</string>
-    <string name="share">Share</string>
     <string name="genre">Genre</string>
     <string name="print">Print</string>
     <string name="sort">Sort</string>
@@ -48,5 +47,8 @@
     <string name="write_a_review">Write a Review!</string>
     <string name="review_text">Write your review and submit it!</string>
     <string name="submit">Submit</string>
+    <string name="ListOverview">ListOverview</string>
+    <string name="MovieOverview">MovieOverview</string>
     <string name="share">Share</string>
+    <string name="title_activity_list_overview">List Overview</string>
 </resources>

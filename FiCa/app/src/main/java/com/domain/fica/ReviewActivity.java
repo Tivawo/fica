@@ -77,6 +77,6 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 //
 //        v.getContext().startActivity(intent);
 //        Log.d("ReviewActivity", "intent created and started activity");
-//        finish();
+        finish();
     }
 }

@@ -46,4 +46,8 @@
     <string name="review_text">Schrijf uw beoordeling hier en verstuur hem!</string>
     <string name="submit">Verstuur</string>
     <string name="share">Deel</string>
+    <string name="app_name">FiCa</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_list_overview">Lijst Overzicht</string>
+    <string name="title_activity_user_list">Mijn Lijst</string>
 </resources>
